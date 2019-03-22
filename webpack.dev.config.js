@@ -1,10 +1,12 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    main: [path.resolve(__dirname, './src/client/index.js'), 'webpack-hot-middleware/client']
+    main: [path.resolve(__dirname, './src/client/index.js'), 'webpack-hot-middleware/client'],
+    movies: [path.resolve(__dirname, './src/client/movies/index.js')]
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -23,7 +25,7 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
+        test: /\.scss$/,
         use: [
           'style-loader',
           {
@@ -34,7 +36,7 @@ module.exports = {
               importLoaders: 1
             }
           },
-          'postcss-loader'
+          'sass-loader'
         ]
       },
       {
@@ -46,6 +48,12 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin('dist', {}),
+    new HtmlWebpackPlugin({
+      inject: false,
+      hash: true,
+      template: './src/client/movies/index.html',
+      filename: 'movies/index.html'
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),

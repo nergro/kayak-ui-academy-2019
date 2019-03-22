@@ -36,7 +36,7 @@ const clientConfig = {
         }
       },
       {
-        test: /\.css$/,
+        test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -46,7 +46,7 @@ const clientConfig = {
               importLoaders: 1
             }
           },
-          'postcss-loader'
+          'sass-loader'
         ]
       },
       {
@@ -89,7 +89,7 @@ const serverConfig = {
         }
       },
       {
-        test: /\.css$/,
+        test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -99,7 +99,7 @@ const serverConfig = {
               importLoaders: 1
             }
           },
-          'postcss-loader'
+          'sass-loader'
         ]
       },
       {

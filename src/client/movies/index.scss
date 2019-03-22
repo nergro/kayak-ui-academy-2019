@@ -1,0 +1,29 @@
+@import 'styles/variables/all';
+@import 'styles/global/all';
+
+// UI components
+
+:global {
+  #app {
+    background: #eff6fc;
+  }
+
+  .page-header {
+    background: #d9e9f7;
+  }
+
+  .aside {
+    .container {
+      background: white;
+    }
+  }
+
+  .main {
+    .container {
+    }
+  }
+
+  .page-footer {
+    background: #d9e9f7;
+  }
+}

@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
     <style>
 		${normalizeAssets(assetsByChunkName.main)
       .filter(path => path.endsWith('.css'))
-      .map(path => fs.readFileSync(outputPath + '/' + path))
+      .map(path => fs.readFileSync(`${outputPath}/${path}`))
       .join('\n')}
     </style>
   </head>

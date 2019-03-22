@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './autocomplete.css';
+import styles from './autocomplete.scss';
 
 const Autocomplete = () => (
   <div className={styles.container}>

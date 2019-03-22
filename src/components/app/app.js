@@ -4,7 +4,7 @@ import React from 'react';
 
 import Autocomplete from '../autocomplete';
 
-import styles from './app.css';
+import styles from './app.scss';
 
 const App = () => (
   <div className={styles.container}>
