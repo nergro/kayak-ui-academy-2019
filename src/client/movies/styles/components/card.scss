@@ -1,0 +1,45 @@
+$padding__unit-card: $size__gutter;
+$width__child-unit-card: 250px;
+
+@mixin card-child-base() {
+  padding: 0 $padding__unit-card;
+  margin-bottom: $padding__unit-card;
+}
+
+:global {
+  .card {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -$padding__unit-card;
+
+    &__header {
+      flex: 1 1 100%;
+      @include card-child-base();
+    }
+
+    &__thumbnail {
+      flex: 0 0 $width__child-unit-card;
+      @include card-child-base();
+    }
+
+    &__body {
+      flex: 1 0 $width__child-unit-card;
+      @include card-child-base();
+    }
+  }
+
+  // Dependencies
+  .asset-poster {
+    width: 250px;
+    max-width: 100%;
+  }
+
+  .asset-title {
+  }
+
+  .asset-meta {
+  }
+
+  .asset-description {
+  }
+}

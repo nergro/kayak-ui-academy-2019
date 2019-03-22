@@ -1,19 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>KAYAK UI Academy.</title>
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-      crossorigin="anonymous"
-    />
-  </head>
-  <body>
-    <div id="app" class="page-wrapper"></div>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+<body>
+    <div id="app" class="page-wrapper">
+        <header class="page-header">
+            <div class="container">
+                <div class="content-wrapper">
+                    <form role="search">
+                        <div class="search pt-60 pb-15">
+                            <h1 class="text-centered pb-15">App title placeholder</h1>
+                            <div class="autocomplete field max-width-600 block-centered">
+                                <div class="control control--has-icon-left">
+                                    <i class="control__icon fas fa-film"></i>
+                                    <input class="input"
+                                           id="movies-autocomplete" 
+                                           type="search"   
+                                           role="combobox" 
+                                           aria-autocomplete="list" 
+                                           aria-expanded="false" 
+                                           autocomplete="off" 
+                                           name="q"
+                                           value=""
+                                           placeholder="any text phrase to search" 
+                                           aria-label="Search through app content"
+                                    >
+                                    <div class="menu">
+                                        <div class="item">
+                                            <span class="title">First entry</span>
+                                            <span class="meta">Some helper meta text</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="title">Second entry</span>
+                                            <span class="meta">Some helper meta text</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="title">Third entry</span>
+                                            <span class="meta">Some helper meta text</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="help error">this field has help text</p>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </header>
+        <div class="page-content container">
+            <main class="main">
+                <div class="container">
+                    <div class="content-wrapper">
+                        <div class="mb-30">
+                            <h3>Search results</h3>
+                        </div>
+                        <article class="card mb-30">
+                            <div class="card__header">
+                                <div class="asset-meta">7.7 / 37.155 / 11135</div>
+                                <h2 class="asset-title">Harry Potter and the Chamber of Secrets</h2>
+                            </div>
+                            <div class="card__body">
+                                <div class="asset-meta">2002-11-13</div>
+                                <div class="asset-meta">Original title: Harry Potter and the Chamber of Secrets</div>
+                                <div class="asset-meta">Original language: EN</div>
+                                <div class="asset-description">Ignoring threats to his life, Harry returns to Hogwarts to investigate – aided by Ron and Hermione – a mysterious series of attacks.</div>
+                                <button class="button mt-30">Add to list</button>
+                            </div>
+                            <div class="card__thumbnail">
+                                <img class="asset-poster" 
+                                     src="https://via.placeholder.com/500x750?text=POSTER+IMAGE" 
+                                     alt="Harry Potter and the Chamber of Secrets movie poster"
+                                >
+                            </div>
+                        </article>                        
+                    </div>
+                </div>
+            </main>
+            <aside class="aside">
+                <div class="container">
+                    <div class="content-wrapper">
+                        <h3>My Favourites</h3>
+                        <p>10 items in the list</p>
+                        <button class="button-link">Manage</button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="content-wrapper">
+                    <p>Links and copyright</p>
+                </div>
+            </div>
+        </footer>
+    </div>
     <script src="<%= htmlWebpackPlugin.files.chunks.movies.entry %>"></script>
-  </body>
+</body>
 </html>

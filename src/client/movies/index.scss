@@ -1,7 +1,13 @@
 @import 'styles/variables/all';
 @import 'styles/global/all';
+@import 'styles/layout';
 
 // UI components
+@import 'styles/components/mixins.scss';
+@import 'styles/components/autocomplete.scss';
+@import 'styles/components/card.scss';
+@import 'styles/components/button.scss';
+@import 'styles/components/input.scss';
 
 :global {
   #app {
