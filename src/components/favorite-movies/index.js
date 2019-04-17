@@ -1,17 +1,26 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const FavouriteMovies = () => (
+const FavouriteMovies = ({ movies }) => (
   <aside className="aside">
     <div className="container">
       <div className="content-wrapper">
         <h3>My Favourites</h3>
-        <p>10 items in the list</p>
-        <button type="button" className="button-link">
-          Manage
-        </button>
+        {movies.map(movie => (
+          <div key={movie.id}>{movie.title}</div>
+        ))}
       </div>
     </div>
   </aside>
 );
 
-export default FavouriteMovies;
+FavouriteMovies.propTypes = {
+  movies: PropTypes.array.isRequired
+};
+
+const mapStateToProps = state => ({
+  movies: state.favorites.movies
+});
+
+export default connect(mapStateToProps)(FavouriteMovies);

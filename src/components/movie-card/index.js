@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import { toggleFavorite as toggleFavoriteAction } from '../../actions/favorites';
 
 const imagePath = 'https://image.tmdb.org/t/p/w500';
 
-const MovieCard = ({ selectedMovie }) => (
+const MovieCard = ({ selectedMovie, toggleFavorite, isFavorite }) => (
   <div>
     <div className="mb-30">
       <h3>Selected Movie</h3>
@@ -18,8 +21,12 @@ const MovieCard = ({ selectedMovie }) => (
         <div className="asset-meta">{selectedMovie.original_title}</div>
         <div className="asset-meta">{selectedMovie.original_language}</div>
         <div className="asset-description">{selectedMovie.overview}</div>
-        <button type="button" className="button mt-30">
-          Add to list
+        <button
+          type="button"
+          className="button mt-30"
+          onClick={() => toggleFavorite(selectedMovie)}
+        >
+          {isFavorite ? 'Remove from favorites!' : 'Add to favorites!'}
         </button>
       </div>
       <div className="card__thumbnail">
@@ -34,7 +41,23 @@ const MovieCard = ({ selectedMovie }) => (
 );
 
 MovieCard.propTypes = {
-  selectedMovie: PropTypes.shape({ id: PropTypes.number.isRequired }).isRequired
+  selectedMovie: PropTypes.shape({ id: PropTypes.number.isRequired }).isRequired,
+  toggleFavorite: PropTypes.func.isRequired
 };
 
-export default MovieCard;
+const mapStateToProps = (state, ownProps) => {
+  const isFavorite = !!state.favorites.movies.find(movie => movie.id === ownProps.selectedMovie.id);
+
+  return {
+    isFavorite
+  };
+};
+
+const mapDispatchToProps = {
+  toggleFavorite: toggleFavoriteAction
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MovieCard);

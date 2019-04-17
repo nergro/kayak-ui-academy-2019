@@ -19,6 +19,10 @@
       min-height: $size__inputs-buttons;
       padding: $padding__input;
 
+      &.favoriteItem {
+        color: red !important;
+      }
+
       &:hover {
         background-color: $background__button;
 
