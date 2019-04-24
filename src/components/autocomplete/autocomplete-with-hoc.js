@@ -2,24 +2,19 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 
+import withClickOutside from '../../hoc/with-click-outside';
+
 class Autocomplete extends PureComponent {
   constructor() {
     super();
     this.state = {
-      inputValue: '',
-      isOpen: false
+      inputValue: ''
     };
     this.handleSearch = debounce(this.handleSearch, 300);
-    this.autoCompleteRef = React.createRef();
   }
 
   componentDidMount() {
     this.props.setGenres();
-    document.addEventListener('mousedown', this.handleClickOutside);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   cleanValues = () => {
@@ -31,20 +26,6 @@ class Autocomplete extends PureComponent {
       inputValue: e.target.value
     });
     this.handleSearch();
-  };
-
-  handleClickOutside = event => {
-    if (this.autoCompleteRef && !this.autoCompleteRef.current.contains(event.target)) {
-      this.setState({
-        isOpen: false
-      });
-    }
-  };
-
-  openSearch = () => {
-    this.setState({
-      isOpen: true
-    });
   };
 
   handleSearch() {
@@ -90,14 +71,16 @@ class Autocomplete extends PureComponent {
   }
 
   render() {
-    const { inputValue, isOpen } = this.state;
+    const { inputValue } = this.state;
+    const { isOpen, setIsOpen, componentRef } = this.props;
+
     return (
-      <div ref={this.autoCompleteRef} className="control control--has-icon-left">
+      <div ref={componentRef} className="control control--has-icon-left">
         <i className="control__icon fas fa-film" />
         <input
           className="input"
           onChange={this.updateValue}
-          onFocus={this.openSearch}
+          onFocus={setIsOpen}
           value={inputValue}
           id="movies-autocomplete"
           type="search"
@@ -119,7 +102,10 @@ Autocomplete.propTypes = {
   setGenres: PropTypes.func.isRequired,
   setMovies: PropTypes.func.isRequired,
   clearMovies: PropTypes.func.isRequired,
-  isMoviesLoading: PropTypes.bool.isRequired
+  isMoviesLoading: PropTypes.bool.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  setIsOpen: PropTypes.func.isRequired,
+  componentRef: PropTypes.object.isRequired
 };
 
-export default Autocomplete;
+export default withClickOutside(Autocomplete);

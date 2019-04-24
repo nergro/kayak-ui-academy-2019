@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { setGenres, setMovies, clearMovies } from '../../actions/search';
-import Autocomplete from './autocomplete';
+import Autocomplete from './autocomplete-with-hooks';
 
 const mapStateToProps = state => ({
   genres: state.search.genres,

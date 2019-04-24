@@ -2,24 +2,19 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 
+import WithClickOutside from '../with-click-outside';
+
 class Autocomplete extends PureComponent {
   constructor() {
     super();
     this.state = {
-      inputValue: '',
-      isOpen: false
+      inputValue: ''
     };
     this.handleSearch = debounce(this.handleSearch, 300);
-    this.autoCompleteRef = React.createRef();
   }
 
   componentDidMount() {
     this.props.setGenres();
-    document.addEventListener('mousedown', this.handleClickOutside);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   cleanValues = () => {
@@ -31,20 +26,6 @@ class Autocomplete extends PureComponent {
       inputValue: e.target.value
     });
     this.handleSearch();
-  };
-
-  handleClickOutside = event => {
-    if (this.autoCompleteRef && !this.autoCompleteRef.current.contains(event.target)) {
-      this.setState({
-        isOpen: false
-      });
-    }
-  };
-
-  openSearch = () => {
-    this.setState({
-      isOpen: true
-    });
   };
 
   handleSearch() {
@@ -90,24 +71,29 @@ class Autocomplete extends PureComponent {
   }
 
   render() {
-    const { inputValue, isOpen } = this.state;
+    const { inputValue } = this.state;
+
     return (
-      <div ref={this.autoCompleteRef} className="control control--has-icon-left">
-        <i className="control__icon fas fa-film" />
-        <input
-          className="input"
-          onChange={this.updateValue}
-          onFocus={this.openSearch}
-          value={inputValue}
-          id="movies-autocomplete"
-          type="search"
-          autoComplete="off"
-          name="q"
-          placeholder="any text phrase to search"
-          aria-label="Search through app content"
-        />
-        {isOpen && <div className="menu">{this.renderResults()}</div>}
-      </div>
+      <WithClickOutside>
+        {({ componentRef, setIsOpen, isOpen }) => (
+          <div ref={componentRef} className="control control--has-icon-left">
+            <i className="control__icon fas fa-film" />
+            <input
+              className="input"
+              onChange={this.updateValue}
+              onFocus={setIsOpen}
+              value={inputValue}
+              id="movies-autocomplete"
+              type="search"
+              autoComplete="off"
+              name="q"
+              placeholder="any text phrase to search"
+              aria-label="Search through app content"
+            />
+            {isOpen && <div className="menu">{this.renderResults()}</div>}
+          </div>
+        )}
+      </WithClickOutside>
     );
   }
 }
