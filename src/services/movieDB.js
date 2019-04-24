@@ -22,3 +22,13 @@ export const getGenres = () =>
   fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`).then(
     response => response.json()
   );
+
+export const getMoviesList = ids => {
+  const promises = ids.map(id =>
+    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`).then(
+      response => response.json()
+    )
+  );
+
+  return Promise.all(promises);
+};

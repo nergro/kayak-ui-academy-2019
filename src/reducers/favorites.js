@@ -1,4 +1,4 @@
-import { TOGGLE_FAVORITE } from '../actions/favorites';
+import { TOGGLE_FAVORITE, SET_MOVIES } from '../actions/favorites';
 
 const initialState = {
   movies: []
@@ -25,6 +25,8 @@ const favorites = (state = initialState, action) => {
         movies: newMovies
       };
     }
+    case SET_MOVIES:
+      return { ...state, movies: action.movies };
     default:
       return state;
   }
