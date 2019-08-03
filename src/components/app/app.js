@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import HeaderWrapper from '../header-wrapper';
 import MovieCardWrapper from '../movie-card-wrapper';
 
+import Navbar from '../navbar';
 import Autocomplete from '../autocomplete';
 import MovieCard from '../movie-card';
 import FavouriteMovies from '../favorite-movies';
@@ -31,6 +32,7 @@ class App extends Component {
     const { selectedMovie } = this.state;
     return (
       <div className={styles.container}>
+        <Navbar />
         <HeaderWrapper>
           <Autocomplete handleSelect={this.handleSelect} />
         </HeaderWrapper>

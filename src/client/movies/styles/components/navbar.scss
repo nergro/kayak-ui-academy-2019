@@ -1,0 +1,42 @@
+:global {
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: $color__light-blue;
+  }
+  .navbar-left {
+    display: flex;
+  }
+  .navbar__item {
+    margin: 0 1rem;
+
+    a {
+      text-decoration: none;
+      color: $color__black-russian;
+      font-weight: $font-weight__headings;
+      font-size: 1.8rem;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    a:hover,
+    a:active {
+      color: $color__shuttle-grey;
+    }
+  }
+
+  .navbar__item--login {
+    a {
+      background: $color__royal-blue;
+      border-radius: 5px;
+      color: $color__white;
+      padding: 0.5rem 1rem;
+    }
+    a:hover,
+    a:active {
+      background: #1444b3;
+      color: $color__white;
+    }
+  }
+}
