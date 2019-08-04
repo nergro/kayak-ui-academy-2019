@@ -1,6 +1,40 @@
+import axios from 'axios';
+
 const apiKey = 'cab2afe8b43cf5386e374c47aeef4fca';
+const accessKey =
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMDlkMDEzZmMyYzYwNTZlMDE3NzAyODVjMDFiZDJhMSIsInN1YiI6IjVjYzc1MmEyYzNhMzY4MjBiNTg2NjRkYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yXdXgp6XChvqW9fyRq2HDcAaDznEHZWBJNstp7-Gm7I';
 
 const moviesMemo = {};
+
+export const config = token => ({
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+});
+
+export const getRequestToken = () => {
+  return axios
+    .post(
+      'https://api.themoviedb.org/4/auth/request_token',
+      { redirect_to: 'http://localhost:3000/' },
+      config(accessKey)
+    )
+    .then(res => {
+      return res.data.request_token;
+    });
+};
+
+export const getAccessToken = request_token => {
+  return axios
+    .post(
+      'https://api.themoviedb.org/4/auth/access_token',
+      { request_token: request_token },
+      config(accessKey)
+    )
+    .then(res => {
+      return res.data.access_token;
+    });
+};
 
 export const getMovies = query => {
   if (moviesMemo[query]) {
