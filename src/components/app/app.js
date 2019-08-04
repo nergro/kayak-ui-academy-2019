@@ -10,6 +10,7 @@ import Autocomplete from '../autocomplete';
 import MovieCard from '../movie-card';
 import FavouriteMovies from '../favorite-movies';
 import Footer from '../footer';
+import Spinner from '../UI/Spinner/Spinner';
 
 import styles from './app.scss';
 import '../../client/movies/index.scss';
@@ -22,6 +23,10 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.checkUser();
+  }
+
   handleSelect = movie => {
     this.setState({
       selectedMovie: movie
@@ -32,23 +37,29 @@ class App extends Component {
     const { selectedMovie } = this.state;
     return (
       <div className={styles.container}>
-        <Navbar />
-        <HeaderWrapper>
-          <Autocomplete handleSelect={this.handleSelect} />
-        </HeaderWrapper>
-        <div className="page-content container">
-          <MovieCardWrapper>
-            {selectedMovie ? (
-              <MovieCard selectedMovie={selectedMovie} />
-            ) : (
-              <div className="mb-30">
-                <h3>Selected Movie</h3>
-              </div>
-            )}
-          </MovieCardWrapper>
-          <FavouriteMovies />
-        </div>
-        <Footer />
+        {this.props.loading ? (
+          <Spinner />
+        ) : (
+          <React.Fragment>
+            <Navbar />
+            <HeaderWrapper>
+              <Autocomplete handleSelect={this.handleSelect} />
+            </HeaderWrapper>
+            <div className="page-content container">
+              <MovieCardWrapper>
+                {selectedMovie ? (
+                  <MovieCard selectedMovie={selectedMovie} />
+                ) : (
+                  <div className="mb-30">
+                    <h3>Selected Movie</h3>
+                  </div>
+                )}
+              </MovieCardWrapper>
+              <FavouriteMovies />
+            </div>
+            <Footer />
+          </React.Fragment>
+        )}
       </div>
     );
   }

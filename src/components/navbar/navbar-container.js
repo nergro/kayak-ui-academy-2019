@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { getReqToken, loginUser, logoutUser, checkUser } from '../../actions/auth';
+import { getReqToken, logoutUser } from '../../actions/auth';
 import Navbar from './navbar';
 
 const mapStateToProps = state => ({
@@ -10,9 +10,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   getReqToken,
-  loginUser,
-  logoutUser,
-  checkUser
+  logoutUser
 };
 
 export default connect(

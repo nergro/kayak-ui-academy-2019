@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import storageClient from '../../services/local-storage-client';
 
 class Navbar extends Component {
-  componentDidMount() {
-    this.props.checkUser();
-  }
   onLogin = () => {
     this.props.getReqToken();
   };
