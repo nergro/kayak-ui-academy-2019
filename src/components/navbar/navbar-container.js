@@ -1,17 +1,18 @@
 import { connect } from 'react-redux';
 
-import { getReqToken, loginUser } from '../../actions/auth';
+import { getReqToken, loginUser, logoutUser, checkUser } from '../../actions/auth';
 import Navbar from './navbar';
 
 const mapStateToProps = state => ({
-  requestToken: state.auth.requestToken
-  //   results: state.search.movies,
-  //   isMoviesLoading: state.search.isMoviesLoading
+  request_token: state.auth.request_token,
+  access_token: state.auth.access_token
 });
 
 const mapDispatchToProps = {
   getReqToken,
-  loginUser
+  loginUser,
+  logoutUser,
+  checkUser
 };
 
 export default connect(

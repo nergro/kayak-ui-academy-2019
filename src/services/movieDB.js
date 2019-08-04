@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiKey = 'cab2afe8b43cf5386e374c47aeef4fca';
+const apiKey = 'b8df29dc84006d6a763f0f6ad6dee2c5';
 const accessKey =
   'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMDlkMDEzZmMyYzYwNTZlMDE3NzAyODVjMDFiZDJhMSIsInN1YiI6IjVjYzc1MmEyYzNhMzY4MjBiNTg2NjRkYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yXdXgp6XChvqW9fyRq2HDcAaDznEHZWBJNstp7-Gm7I';
 
@@ -32,7 +32,10 @@ export const getAccessToken = request_token => {
       config(accessKey)
     )
     .then(res => {
-      return res.data.access_token;
+      return {
+        access_token: res.data.access_token,
+        account_id: res.data.account_id
+      };
     });
 };
 

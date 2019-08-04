@@ -27,14 +27,16 @@
   }
 
   .navbar__item--login {
-    a {
+    button {
       background: $color__royal-blue;
+      border: none;
       border-radius: 5px;
       color: $color__white;
       padding: 0.5rem 1rem;
+      font-size: 1.8rem;
     }
-    a:hover,
-    a:active {
+    button:hover,
+    button:active {
       background: #1444b3;
       color: $color__white;
     }
