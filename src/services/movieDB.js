@@ -13,6 +13,7 @@ export const config = token => ({
   }
 });
 
+/* AUTH */
 export const getRequestToken = () => {
   return axios
     .post(
@@ -36,6 +37,19 @@ export const getAccessToken = request_token => {
       return {
         access_token: res.data.access_token,
         account_id: res.data.account_id
+      };
+    });
+};
+
+/* LISTS */
+
+export const getLists = (accountId, page) => {
+  return axios
+    .get(`https://api.themoviedb.org/4/account/${accountId}/lists?page=${page}`, config(accessKey))
+    .then(res => {
+      return {
+        total_pages: res.data.total_pages,
+        lists: res.data.results
       };
     });
 };

@@ -40,10 +40,10 @@ const Navbar = ({ getReqToken, logoutUser, accessToken }) => {
   );
 };
 
-Navbar.prototypes = {
+Navbar.propTypes = {
   getReqToken: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  access_token: PropTypes.string.isRequired
+  accessToken: PropTypes.string.isRequired
 };
 
 export default Navbar;

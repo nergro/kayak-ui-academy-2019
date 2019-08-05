@@ -54,7 +54,7 @@ class App extends Component {
   }
 }
 
-App.prototypes = {
+App.propTypes = {
   loading: PropTypes.bool.isRequired,
   checkUser: PropTypes.func.isRequired
 };
