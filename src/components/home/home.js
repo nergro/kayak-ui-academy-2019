@@ -7,8 +7,9 @@ import FavouriteMovies from '../favorite-movies';
 
 const index = props => {
   const { selectedMovie } = props;
+  console.log(selectedMovie);
   return (
-    <React.Fragment>
+    <div className="home">
       <MovieCardWrapper>
         {selectedMovie ? (
           <MovieCard selectedMovie={selectedMovie} />
@@ -19,7 +20,7 @@ const index = props => {
         )}
       </MovieCardWrapper>
       <FavouriteMovies />
-    </React.Fragment>
+    </div>
   );
 };
 

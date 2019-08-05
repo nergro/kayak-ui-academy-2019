@@ -1,7 +1,7 @@
 import { hot } from 'react-hot-loader/root';
 
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import HeaderWrapper from '../header-wrapper';
@@ -38,11 +38,11 @@ class App extends Component {
               <Autocomplete />
             </HeaderWrapper>
 
-            <div className="page-content container">
+            <div className="page-content">
               <Switch>
                 <Route path="/" exact component={Home} />
-                <Route path="/list/:id" component={List} />
                 <Route path="/lists" component={Lists} />
+                <Route path="/list/:id" component={List} />
                 <Route component={notFound} />
               </Switch>
             </div>
@@ -59,4 +59,4 @@ App.prototypes = {
   checkUser: PropTypes.func.isRequired
 };
 
-export default hot(App);
+export default withRouter(hot(App));
