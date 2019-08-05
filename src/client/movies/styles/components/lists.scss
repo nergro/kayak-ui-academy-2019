@@ -1,0 +1,52 @@
+:global {
+  /* Displaying list of lists */
+  .lists-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3rem 0;
+    .lists-container__title {
+      font-size: 3rem;
+    }
+  }
+  .lists-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .list-box {
+    background: #081c24cc;
+    color: $color__white;
+    padding: 5rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out;
+    .list-box__property {
+      margin: 0.5rem 0;
+    }
+    .list-box__title {
+      font-family: 'Source Sans Pro';
+      font-size: 2.5rem;
+      font-weight: $font-weight__headings;
+    }
+    .list-box__items-count {
+      font-weight: $font-weight__headings;
+    }
+    .list-box__updated {
+      opacity: 0.5;
+    }
+  }
+
+  .list:hover {
+    -webkit-box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 1);
+    box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 1);
+  }
+
+  /* Displaying single list */
+}

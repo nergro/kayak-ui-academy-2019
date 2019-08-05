@@ -13,6 +13,8 @@ import Spinner from '../UI/Spinner/Spinner';
 
 import Home from '../home';
 import Lists from '../lists';
+import List from '../list';
+import notFound from '../404';
 
 import styles from './app.scss';
 import '../../client/movies/index.scss';
@@ -25,7 +27,6 @@ class App extends Component {
 
   render() {
     const { loading } = this.props;
-    console.log(this.props);
     return (
       <div className={styles.container}>
         {loading ? (
@@ -40,7 +41,9 @@ class App extends Component {
             <div className="page-content container">
               <Switch>
                 <Route path="/" exact component={Home} />
-                <Route path="/lists" exact component={Lists} />
+                <Route path="/list/:id" component={List} />
+                <Route path="/lists" component={Lists} />
+                <Route component={notFound} />
               </Switch>
             </div>
             <Footer />
