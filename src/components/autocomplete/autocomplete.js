@@ -65,7 +65,7 @@ class Autocomplete extends PureComponent {
   }
 
   renderResults() {
-    const { handleSelect, results, isMoviesLoading } = this.props;
+    const { results, isMoviesLoading, selectedMovie } = this.props;
     return (
       <div>
         {isMoviesLoading ? (
@@ -76,7 +76,7 @@ class Autocomplete extends PureComponent {
               key={movie.id}
               className={`item ${movie.favorite ? 'favoriteItem' : ''}`}
               onClick={() => {
-                handleSelect(movie);
+                selectedMovie(movie);
                 this.cleanValues();
               }}
             >
@@ -113,7 +113,6 @@ class Autocomplete extends PureComponent {
 }
 
 Autocomplete.propTypes = {
-  handleSelect: PropTypes.func.isRequired,
   genres: PropTypes.object.isRequired,
   results: PropTypes.array.isRequired,
   setGenres: PropTypes.func.isRequired,

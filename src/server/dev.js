@@ -29,11 +29,10 @@ app.use(
   })
 );
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   const assetsByChunkName = res.locals.webpackStats.toJson().assetsByChunkName;
   const fs = res.locals.fs;
   const outputPath = res.locals.webpackStats.toJson().outputPath;
-
   res.send(`
 <html>
   <head>

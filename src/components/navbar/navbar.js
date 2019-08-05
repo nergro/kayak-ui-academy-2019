@@ -1,38 +1,49 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class Navbar extends Component {
-  onLogin = () => {
-    this.props.getReqToken();
+const Navbar = ({ getReqToken, logoutUser, accessToken }) => {
+  const onLogin = () => {
+    getReqToken();
   };
-  onLogout = () => {
-    this.props.logoutUser();
+  const onLogout = () => {
+    logoutUser();
   };
 
-  render() {
-    return (
-      <div className="navbar">
-        <div className="navbar-left">
-          <div className="navbar__item">
-            <a href="##">Home</a>
-          </div>
-          <div className="navbar__item">
-            <a href="##">Lists</a>
-          </div>
+  return (
+    <div className="navbar">
+      <div className="navbar-left">
+        <div className="navbar__item">
+          <a href="/">Home</a>
         </div>
-        <div className="navbar-right">
-          {this.props.access_token ? (
-            <div className="navbar__item navbar__item--login">
-              <button onClick={this.onLogout}>Logout</button>
-            </div>
-          ) : (
-            <div className="navbar__item navbar__item--login">
-              <button onClick={this.onLogin}>Login</button>
-            </div>
-          )}
-        </div>
+        {accessToken ? (
+          <div className="navbar__item">
+            <a href="/lists">Lists</a>
+          </div>
+        ) : null}
       </div>
-    );
-  }
-}
+      <div className="navbar-right">
+        {accessToken ? (
+          <div className="navbar__item navbar__item--login">
+            <button type="button" onClick={onLogout}>
+              Logout
+            </button>
+          </div>
+        ) : (
+          <div className="navbar__item navbar__item--login">
+            <button type="button" onClick={onLogin}>
+              Login
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+Navbar.prototypes = {
+  getReqToken: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  access_token: PropTypes.string.isRequired
+};
 
 export default Navbar;

@@ -5,6 +5,7 @@ export const GOT_MOVIES = 'GOT_MOVIES';
 export const CLEAR_MOVIES = 'CLEAR_MOVIES';
 export const GOT_MOVIES_LOADING = 'GOT_MOVIES_LOADING';
 export const GOT_MOVIED_FAILED = 'GOT_MOVIED_FAILED';
+export const SELECT_MOVIE = 'SELECT_MOVIE';
 
 const gotGenres = genres => ({
   type: GOT_GENRES,
@@ -60,4 +61,13 @@ export const setMovies = inputValue => (dispatch, getState) => {
       dispatch(gotMoviesFailed(error));
     }
   );
+};
+
+const selectMovie = selectedMovie => ({
+  type: SELECT_MOVIE,
+  selectedMovie
+});
+
+export const selectedMovie = movie => dispatch => {
+  dispatch(selectMovie(movie));
 };

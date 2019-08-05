@@ -1,9 +1,16 @@
-import { GOT_GENRES, GOT_MOVIES, CLEAR_MOVIES, GOT_MOVIES_LOADING } from '../actions/search';
+import {
+  GOT_GENRES,
+  GOT_MOVIES,
+  CLEAR_MOVIES,
+  GOT_MOVIES_LOADING,
+  SELECT_MOVIE
+} from '../actions/search';
 
 const initialState = {
   movies: [],
   genres: {},
-  isMoviesLoading: false
+  isMoviesLoading: false,
+  selectedMovie: null
 };
 
 const search = (state = initialState, action) => {
@@ -39,6 +46,8 @@ const search = (state = initialState, action) => {
         isMoviesLoading: true
       };
     }
+    case SELECT_MOVIE:
+      return { ...state, selectedMovie: action.selectedMovie };
     default:
       return state;
   }
