@@ -8,7 +8,7 @@ import ListsWrapper from '../lists-wrapper';
 class Lists extends Component {
   componentDidMount() {
     const { fetchLists } = this.props;
-    fetchLists(1);
+    fetchLists();
   }
   render() {
     const { lists, loading } = this.props;

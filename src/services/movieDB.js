@@ -47,10 +47,27 @@ export const getLists = accountId => {
     });
 };
 
-// export const getList = (listId) => {
-//   return axios
-//     .get("")
-// };
+export const getList = (listId, page) => {
+  return axios
+    .get(
+      `https://api.themoviedb.org/4/list/${listId}?page=${page}&api_key=${apiKey}`,
+      config(accessKey)
+    )
+    .then(res => {
+      return {
+        data: {
+          items: res.data.total_results,
+          rating: res.data.average_rating,
+          runtime: res.data.runtime,
+          revenue: res.data.revenue,
+          totalPages: res.data.total_pages,
+          movies: res.data.results,
+          name: res.data.name,
+          description: res.data.description
+        }
+      };
+    });
+};
 
 export const getMovies = query => {
   if (moviesMemo[query]) {

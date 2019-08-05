@@ -5,7 +5,7 @@ import Proptypes from 'prop-types';
 const list = ({ title, itemCount, rating, id, history: { push } }) => {
   const count = itemCount == 1 ? itemCount + ' item' : itemCount + ' items';
   const handleClick = () => {
-    push('/list/' + id);
+    push('/list/' + id + '/1');
   };
   return (
     <div className="list-box" onClick={handleClick}>

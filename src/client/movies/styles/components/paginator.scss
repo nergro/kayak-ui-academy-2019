@@ -9,15 +9,24 @@
     }
 
     .paginator-list__item {
-      padding: 1rem 2rem;
-      cursor: pointer;
       border-radius: 5px;
-      font-size: 1.5rem;
-      font-weight: $font-weight__headings;
+      margin: 0 0.2rem;
+      a {
+        display: block;
+        padding: 1rem 2rem;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 1.5rem;
+        font-weight: $font-weight__headings;
+        text-decoration: none;
+        color: inherit;
+      }
     }
     .paginator-list__item--first,
     .paginator-list__item--last {
-      padding: 1rem;
+      a {
+        padding: 1rem;
+      }
     }
     .paginator-list__item:hover,
     .paginator-list__item.active {

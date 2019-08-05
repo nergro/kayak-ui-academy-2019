@@ -1,9 +1,16 @@
 import { connect } from 'react-redux';
 import List from './list';
 
-const mapStateToProps = state => ({});
+import { fetchList } from '../../actions/lists';
 
-const mapDispatchToProps = {};
+const mapStateToProps = state => ({
+  listData: state.lists.listData,
+  loading: state.lists.loading
+});
+
+const mapDispatchToProps = {
+  fetchList
+};
 
 export default connect(
   mapStateToProps,
