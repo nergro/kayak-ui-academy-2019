@@ -11,10 +11,12 @@ export const GET_LIST_FAILED = 'GET_LIST_FAILED';
 const getListsLoading = () => ({
   type: GET_LISTS_LOADING
 });
-const getListsSuccess = lists => ({
-  type: GET_LISTS_SUCCESS,
-  lists
-});
+const getListsSuccess = lists => {
+  return {
+    type: GET_LISTS_SUCCESS,
+    lists
+  };
+};
 const getListsFailed = () => ({
   type: GET_LISTS_FAILED
 });

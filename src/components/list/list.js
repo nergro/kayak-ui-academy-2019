@@ -21,8 +21,6 @@ class List extends Component {
   }
   render() {
     const { listData, loading } = this.props;
-    console.log('DATA');
-    console.log(listData);
     let runtime = '';
     let revenue = '';
 
