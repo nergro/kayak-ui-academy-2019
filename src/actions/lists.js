@@ -7,10 +7,9 @@ export const GET_LISTS_FAILED = 'GET_LISTS_FAILED';
 const getListsLoading = () => ({
   type: GET_LISTS_LOADING
 });
-const getListsSuccess = (lists, pages) => ({
+const getListsSuccess = lists => ({
   type: GET_LISTS_SUCCESS,
-  lists,
-  pages
+  lists
 });
 const getListsFailed = () => ({
   type: GET_LISTS_FAILED
@@ -20,8 +19,8 @@ export const fetchLists = page => (dispatch, getState, { storageClient }) => {
   const accountId = storageClient.get('ACCOUNT_ID');
   dispatch(getListsLoading());
   return getLists(accountId, page).then(
-    res => {
-      dispatch(getListsSuccess(res.lists, res.total_pages));
+    lists => {
+      dispatch(getListsSuccess(lists));
     },
     error => {
       dispatch(getListsFailed());

@@ -28,11 +28,7 @@ export const getRequestToken = () => {
 
 export const getAccessToken = request_token => {
   return axios
-    .post(
-      'https://api.themoviedb.org/4/auth/access_token',
-      { request_token: request_token },
-      config(accessKey)
-    )
+    .post('https://api.themoviedb.org/4/auth/access_token', { request_token }, config(accessKey))
     .then(res => {
       return {
         access_token: res.data.access_token,
@@ -43,16 +39,18 @@ export const getAccessToken = request_token => {
 
 /* LISTS */
 
-export const getLists = (accountId, page) => {
+export const getLists = accountId => {
   return axios
-    .get(`https://api.themoviedb.org/4/account/${accountId}/lists?page=${page}`, config(accessKey))
+    .get(`https://api.themoviedb.org/4/account/${accountId}/lists`, config(accessKey))
     .then(res => {
-      return {
-        total_pages: res.data.total_pages,
-        lists: res.data.results
-      };
+      return res.data.results;
     });
 };
+
+// export const getList = (listId) => {
+//   return axios
+//     .get("")
+// };
 
 export const getMovies = query => {
   if (moviesMemo[query]) {

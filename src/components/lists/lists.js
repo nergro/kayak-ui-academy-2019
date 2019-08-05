@@ -11,11 +11,11 @@ class Lists extends Component {
     fetchLists(1);
   }
   render() {
-    const { lists, pages, loading } = this.props;
+    const { lists, loading } = this.props;
     return (
       <div className="lists-container">
         <h1 className="lists-container__title">LISTS</h1>
-        <ListsWrapper lists={lists} pages={pages} loading={loading} />
+        <ListsWrapper lists={lists} loading={loading} />
       </div>
     );
   }
@@ -24,7 +24,6 @@ class Lists extends Component {
 Lists.propTypes = {
   fetchLists: Proptypes.func.isRequired,
   lists: Proptypes.array.isRequired,
-  pages: Proptypes.string.isRequired,
   loading: Proptypes.bool.isRequired
 };
 

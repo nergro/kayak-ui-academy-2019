@@ -5,7 +5,6 @@ import { fetchLists } from '../../actions/lists';
 
 const mapStateToProps = state => ({
   lists: state.lists.lists,
-  pages: state.lists.pages,
   loading: state.lists.loading
 });
 
