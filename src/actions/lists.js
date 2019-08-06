@@ -1,6 +1,7 @@
 import {
   getLists,
   getList,
+  getAllLists,
   createList,
   updateList as updList,
   clearList as clList,
@@ -34,10 +35,10 @@ export const DELETE_LIST_FAILED = 'DELETE_LIST_FAILED';
 const getListsLoading = () => ({
   type: GET_LISTS_LOADING
 });
-const getListsSuccess = lists => {
+const getListsSuccess = data => {
   return {
     type: GET_LISTS_SUCCESS,
-    lists
+    data
   };
 };
 const getListsFailed = () => ({
@@ -48,8 +49,8 @@ export const fetchLists = () => (dispatch, getState, { storageClient }) => {
   const accountId = storageClient.get('ACCOUNT_ID');
   dispatch(getListsLoading());
   return getLists(accountId).then(
-    lists => {
-      dispatch(getListsSuccess(lists));
+    data => {
+      dispatch(getListsSuccess(data));
     },
     error => {
       dispatch(getListsFailed());

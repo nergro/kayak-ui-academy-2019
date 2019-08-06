@@ -13,31 +13,26 @@ import Settings from './list-settings';
 let CURRENT_PAGE = '';
 let CURRENT_URL = '';
 let LIST_ID = '';
+// let LIST_DATA = {};
 // eslint-disable-next-line react/prefer-stateless-function
 class List extends Component {
-  componentDidMount() {
-    const { match, fetchList, fetchedLists } = this.props;
+  render() {
+    const { list, loading, error, match } = this.props;
     LIST_ID = match.params.id;
     CURRENT_PAGE = match.params.page;
-    if (!fetchedLists.includes(LIST_ID)) {
-      fetchList(LIST_ID, CURRENT_PAGE);
-    }
     CURRENT_URL = '/list/' + LIST_ID;
-  }
 
-  render() {
-    const { listData, loading, error } = this.props;
     let runtime = '';
     let revenue = '';
-    if (listData.runtime) {
-      const runtimeHours = Math.floor(listData.runtime / 60);
-      const runtimeMinutes = listData.runtime - runtimeHours * 60;
+    if (list.runtime) {
+      const runtimeHours = Math.floor(list.runtime / 60);
+      const runtimeMinutes = list.runtime - runtimeHours * 60;
       runtime = runtimeHours + 'H ' + runtimeMinutes + 'M';
 
       const billion = 1000000000;
       const million = 1000000;
       const thousand = 1000;
-      const rev = listData.revenue;
+      const rev = list.revenue;
       if (rev > billion) {
         revenue = Math.floor(rev / billion) + 'B';
       } else if (rev > million) {
@@ -48,24 +43,25 @@ class List extends Component {
         revenue = rev;
       }
     }
+    console.log();
 
     return (
       <React.Fragment>
         {loading ? (
           <Spinner />
-        ) : listData.items ? (
+        ) : list.items ? (
           <div className="list">
             <div className="list-title">
-              <h1>{listData.name}</h1>
-              <p>{listData.description}</p>
+              <h1>{list.name}</h1>
+              <p>{list.description}</p>
             </div>
             <div className="list-info">
               <div className="list-info__item list-info__items-count">
-                <h2>{listData.items}</h2>
-                <p>{listData.items === 1 ? 'ITEM ON THIS LIST' : 'ITEMS ON THIS LIST'}</p>
+                <h2>{list.items}</h2>
+                <p>{list.items === 1 ? 'ITEM ON THIS LIST' : 'ITEMS ON THIS LIST'}</p>
               </div>
               <div className="list-info__item list-info__rating">
-                <h2>{listData.rating.toFixed(2)}</h2>
+                <h2>{list.rating.toFixed(2)}</h2>
                 <p>AVERAGE RATING</p>
               </div>
               <div className="list-info__item list-info__runtime">
@@ -83,10 +79,10 @@ class List extends Component {
                 // pages={listData.totalPages}
                 // currentPage={CURRENT_PAGE}
                 currentUrl={CURRENT_URL}
-                movies={listData.movies}
+                movies={list.movies}
               />
               <Paginator
-                pages={listData.totalPages}
+                pages={list.totalPages}
                 currentPage={CURRENT_PAGE}
                 currentUrl={CURRENT_URL}
               />
@@ -97,8 +93,8 @@ class List extends Component {
         ) : (
           <div className="list">
             <div className="list-title">
-              <h1>{listData.name}</h1>
-              <p>{listData.description}</p>
+              <h1>{list.name}</h1>
+              <p>{list.description}</p>
             </div>
             <Settings empty listId={LIST_ID} />
             <Error>List is empty</Error>
@@ -110,12 +106,9 @@ class List extends Component {
 }
 
 List.propTypes = {
-  fetchList: Proptypes.func.isRequired,
-  listData: Proptypes.object.isRequired,
-  match: Proptypes.object.isRequired,
-  loading: Proptypes.bool.isRequired,
-  error: Proptypes.bool.isRequired,
-  fetchedLists: Proptypes.array.isRequired
+  match: Proptypes.object.isRequired
+  // loading: Proptypes.bool.isRequired,
+  // error: Proptypes.bool.isRequired
 };
 
 export default withRouter(List);

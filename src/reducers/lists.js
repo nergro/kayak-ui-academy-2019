@@ -21,9 +21,9 @@ import {
 
 const initialState = {
   lists: [],
+  fetchedLists: [],
   loading: false,
   listData: {},
-  fetchedLists: [],
   listTitle: '',
   listDescription: '',
   error: false,
@@ -39,7 +39,12 @@ const auth = (state = initialState, action) => {
     case GET_LISTS_LOADING:
       return { ...state, loading: true };
     case GET_LISTS_SUCCESS:
-      return { ...state, loading: false, lists: action.lists };
+      return {
+        ...state,
+        loading: false,
+        lists: action.data.lists,
+        fetchedLists: action.data.fetchedLists
+      };
     case GET_LISTS_FAILED:
       return { ...state, loading: false, error: true };
     case GET_LIST_LOADING:
@@ -52,7 +57,6 @@ const auth = (state = initialState, action) => {
         listTitle: action.data.name,
         listDescription: action.data.description,
         listId: action.data.id,
-        fetchedLists: [...state.fetchedLists, action.data.id.toString()],
         error: false
       };
     case GET_LIST_FAILED:

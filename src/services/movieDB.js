@@ -40,11 +40,25 @@ export const getAccessToken = request_token => {
 /* LISTS */
 
 export const getLists = accountId => {
+  let lists = {};
   return axios
     .get(`https://api.themoviedb.org/4/account/${accountId}/lists`, config(accessKey))
     .then(res => {
-      return res.data.results;
+      lists = res.data.results;
+      return getAllLists(res.data.results);
+      // return res.data.results;
+    })
+    .then(res => {
+      return {
+        lists,
+        fetchedLists: res
+      };
     });
+};
+
+export const getAllLists = lists => {
+  const promises = lists.map(list => getList(list.id, 1).then(response => response));
+  return Promise.all(promises);
 };
 
 export const getList = (listId, page) => {
