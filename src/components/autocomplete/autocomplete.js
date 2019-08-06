@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 
@@ -65,7 +66,7 @@ class Autocomplete extends PureComponent {
   }
 
   renderResults() {
-    const { results, isMoviesLoading, selectedMovie } = this.props;
+    const { results, isMoviesLoading, selectedMovie, history } = this.props;
     return (
       <div>
         {isMoviesLoading ? (
@@ -76,6 +77,7 @@ class Autocomplete extends PureComponent {
               key={movie.id}
               className={`item ${movie.favorite ? 'favoriteItem' : ''}`}
               onClick={() => {
+                history.push('/');
                 selectedMovie(movie);
                 this.cleanValues();
               }}
@@ -118,7 +120,9 @@ Autocomplete.propTypes = {
   setGenres: PropTypes.func.isRequired,
   setMovies: PropTypes.func.isRequired,
   clearMovies: PropTypes.func.isRequired,
-  isMoviesLoading: PropTypes.bool.isRequired
+  isMoviesLoading: PropTypes.bool.isRequired,
+  history: PropTypes.object.isRequired,
+  selectedMovie: PropTypes.func.isRequired
 };
 
-export default Autocomplete;
+export default withRouter(Autocomplete);
