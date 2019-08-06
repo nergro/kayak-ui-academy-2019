@@ -13,7 +13,10 @@ import {
   UPDATE_LIST_SUCCESS,
   CLEAR_LIST_LOADING,
   CLEAR_LIST_SUCCESS,
-  CLEAR_LIST_FAILED
+  CLEAR_LIST_FAILED,
+  DELETE_LIST_LOADING,
+  DELETE_LIST_SUCCESS,
+  DELETE_LIST_FAILED
 } from '../actions/lists';
 
 const initialState = {
@@ -26,7 +29,8 @@ const initialState = {
   createdListId: '',
   listPosted: false,
   listUpdated: false,
-  listCleared: false
+  listCleared: false,
+  listDeleted: false
 };
 
 const auth = (state = initialState, action) => {
@@ -68,6 +72,12 @@ const auth = (state = initialState, action) => {
       return { ...state, loading: false, listCleared: true };
     case CLEAR_LIST_FAILED:
       return { ...state, loading: false, error: true, listCleared: false };
+    case DELETE_LIST_LOADING:
+      return { ...state, loading: true, listDeleted: false };
+    case DELETE_LIST_SUCCESS:
+      return { ...state, loading: false, listDeleted: true };
+    case DELETE_LIST_FAILED:
+      return { ...state, loading: false, error: true, listDeleted: false };
     default:
       return state;
   }

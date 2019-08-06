@@ -3,7 +3,8 @@ import {
   getList,
   createList,
   updateList as updList,
-  clearList as clList
+  clearList as clList,
+  deleteList as delList
 } from '../services/movieDB';
 
 export const GET_LISTS_LOADING = 'GET_LISTS_LOADING';
@@ -25,6 +26,10 @@ export const UPDATE_LIST_FAILED = 'UPDATE_LIST_FAILED';
 export const CLEAR_LIST_LOADING = 'CLEAR_LIST_LOADING';
 export const CLEAR_LIST_SUCCESS = 'CLEAR_LIST_SUCCESS';
 export const CLEAR_LIST_FAILED = 'CLEAR_LIST_FAILED';
+
+export const DELETE_LIST_LOADING = 'DELETE_LIST_LOADING';
+export const DELETE_LIST_SUCCESS = 'DELETE_LIST_SUCCESS';
+export const DELETE_LIST_FAILED = 'DELETE_LIST_FAILED';
 
 const getListsLoading = () => ({
   type: GET_LISTS_LOADING
@@ -149,6 +154,30 @@ export const clearList = listId => (dispatch, getState, { storageClient }) => {
     },
     error => {
       dispatch(clearListFailed());
+    }
+  );
+};
+
+const deleteListLoading = () => ({
+  type: DELETE_LIST_LOADING
+});
+const deleteListSuccess = success => ({
+  type: DELETE_LIST_SUCCESS,
+  success
+});
+const deleteListFailed = () => ({
+  type: DELETE_LIST_FAILED
+});
+
+export const deleteList = listId => (dispatch, getState, { storageClient }) => {
+  const accessToken = storageClient.get('ACCESS_TOKEN');
+  dispatch(deleteListLoading());
+  return delList(listId, accessToken).then(
+    success => {
+      dispatch(deleteListSuccess(success));
+    },
+    error => {
+      dispatch(deleteListFailed());
     }
   );
 };

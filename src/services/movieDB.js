@@ -100,6 +100,14 @@ export const clearList = (listId, accessToken) => {
     });
 };
 
+export const deleteList = (listId, accessToken) => {
+  return axios
+    .delete(`https://api.themoviedb.org/4/list/${listId}`, config(accessToken))
+    .then(res => {
+      return res.data.success;
+    });
+};
+
 /* Movies */
 export const getMovies = query => {
   if (moviesMemo[query]) {

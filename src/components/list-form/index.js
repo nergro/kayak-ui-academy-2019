@@ -87,7 +87,7 @@ listForm.propTypes = {
   description: Proptypes.string.isRequired,
   makeList: Proptypes.func,
   updateList: Proptypes.func,
-  listId: Proptypes
+  listId: Proptypes.string
 };
 
 listForm.defaultProps = {

@@ -48,6 +48,7 @@ class App extends Component {
                 <Route path="/list/create" component={CreateList} />
                 <Route path="/list/:id/edit" component={UpdateList} />
                 <Route path="/list/:id/clear" component={ClearDeleteList} />
+                <Route path="/list/:id/delete" component={ClearDeleteList} />
                 <Route path="/list/:id/:page" component={List} />
                 <Route component={notFound} />
               </Switch>

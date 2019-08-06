@@ -41,13 +41,13 @@ class UpdateList extends Component {
 }
 
 UpdateList.propTypes = {
-  match: Proptypes.func.isRequired,
+  match: Proptypes.object.isRequired,
   fetchList: Proptypes.func.isRequired,
   loading: Proptypes.bool.isRequired,
   error: Proptypes.bool.isRequired,
   listUpdated: Proptypes.bool.isRequired,
   title: Proptypes.string.isRequired,
-  description: Proptypes.shape.isRequired,
+  description: Proptypes.string.isRequired,
   updateList: Proptypes.func.isRequired
 };
 

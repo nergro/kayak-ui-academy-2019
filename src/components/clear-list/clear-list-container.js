@@ -1,16 +1,18 @@
 import { connect } from 'react-redux';
 import ClearList from './clear-list';
 
-import { clearList } from '../../actions/lists';
+import { clearList, deleteList } from '../../actions/lists';
 
 const mapStateToProps = state => ({
   loading: state.lists.loading,
   error: state.lists.error,
-  listCleared: state.lists.listCleared
+  listCleared: state.lists.listCleared,
+  listDeleted: state.lists.listDeleted
 });
 
 const mapDispatchToProps = {
-  clearList
+  clearList,
+  deleteList
 };
 
 export default connect(

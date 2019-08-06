@@ -13,8 +13,8 @@ class settings extends Component {
     });
   };
 
-  warning = e => {
-    if (!window.confirm('Do You really want to clear this list?')) {
+  warning = (e, msg) => {
+    if (!window.confirm(msg)) {
       e.preventDefault();
     }
   };
@@ -23,6 +23,7 @@ class settings extends Component {
     const { empty, listId } = this.props;
     const editUrl = '/list/' + listId + '/edit';
     const clearUrl = '/list/' + listId + '/clear';
+    const deleteUrl = '/list/' + listId + '/delete';
     return (
       <div className="settings-wrapper">
         <button
@@ -41,13 +42,21 @@ class settings extends Component {
               </li>
               {!empty ? (
                 <li className="settings-list__item">
-                  <a href={clearUrl} onClick={this.warning}>
+                  <a
+                    href={clearUrl}
+                    onClick={e => this.warning(e, 'Do You really want to CLEAR this list?')}
+                  >
                     CLEAR LIST
                   </a>
                 </li>
               ) : null}
               <li className="settings-list__item">
-                <a href={editUrl}>DELETE LIST</a>
+                <a
+                  href={deleteUrl}
+                  onClick={e => this.warning(e, 'Do You really want to DELETE this list?')}
+                >
+                  DELETE LIST
+                </a>
               </li>
             </ul>
           </div>
