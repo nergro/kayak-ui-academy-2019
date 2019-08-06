@@ -8,6 +8,7 @@ import Paginator from '../UI/paginator/paginator';
 import Spinner from '../UI/Spinner/Spinner';
 import { imagePath } from '../../services/movieDB';
 import Error from '../UI/error';
+import Settings from './settings-drop';
 
 let CURRENT_PAGE = '';
 let CURRENT_URL = '';
@@ -20,6 +21,7 @@ class List extends Component {
     fetchList(listId, CURRENT_PAGE);
     CURRENT_URL = '/list/' + listId;
   }
+
   render() {
     const { listData, loading, error } = this.props;
     let runtime = '';
@@ -71,6 +73,7 @@ class List extends Component {
                 <p>TOTAL REVENUE</p>
               </div>
             </div>
+            <Settings />
             <div className="list-movies">
               <Paginator
                 pages={listData.totalPages}
@@ -97,6 +100,7 @@ class List extends Component {
               <h1>{listData.name}</h1>
               <p>{listData.description}</p>
             </div>
+            <Settings empty />
             <Error>List is empty</Error>
           </div>
         )}
