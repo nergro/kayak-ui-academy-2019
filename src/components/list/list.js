@@ -46,7 +46,6 @@ class List extends Component {
         revenue = rev;
       }
     }
-    const listIDD = match.params.id.toString();
 
     return (
       <React.Fragment>
@@ -76,7 +75,7 @@ class List extends Component {
                 <p>TOTAL REVENUE</p>
               </div>
             </div>
-            <Settings listId={listIDD} />
+            <Settings listId={LIST_ID} />
             <div className="list-movies">
               <Paginator
                 pages={listData.totalPages}
@@ -103,7 +102,7 @@ class List extends Component {
               <h1>{listData.name}</h1>
               <p>{listData.description}</p>
             </div>
-            <Settings empty listId={listIDD} />
+            <Settings empty listId={LIST_ID} />
             <Error>List is empty</Error>
           </div>
         )}

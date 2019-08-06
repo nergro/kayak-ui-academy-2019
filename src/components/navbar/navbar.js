@@ -43,7 +43,7 @@ Navbar.propTypes = {
   getReqToken: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
   accessToken: PropTypes.string.isRequired,
-  history: PropTypes.func.isRequired
+  history: PropTypes.object.isRequired
 };
 
 export default withRouter(Navbar);

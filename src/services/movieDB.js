@@ -92,6 +92,14 @@ export const updateList = (title, description, accessToken, listId) => {
     });
 };
 
+export const clearList = (listId, accessToken) => {
+  return axios
+    .get(`https://api.themoviedb.org/4/list/${listId}/clear`, config(accessToken))
+    .then(res => {
+      return res.data.success;
+    });
+};
+
 /* Movies */
 export const getMovies = query => {
   if (moviesMemo[query]) {

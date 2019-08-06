@@ -12,10 +12,17 @@ class settings extends Component {
       };
     });
   };
+
+  warning = e => {
+    if (!window.confirm('Do You really want to clear this list?')) {
+      e.preventDefault();
+    }
+  };
+
   render() {
     const { empty, listId } = this.props;
     const editUrl = '/list/' + listId + '/edit';
-
+    const clearUrl = '/list/' + listId + '/clear';
     return (
       <div className="settings-wrapper">
         <button
@@ -34,7 +41,9 @@ class settings extends Component {
               </li>
               {!empty ? (
                 <li className="settings-list__item">
-                  <a href={editUrl}>CLEAR LIST</a>
+                  <a href={clearUrl} onClick={this.warning}>
+                    CLEAR LIST
+                  </a>
                 </li>
               ) : null}
               <li className="settings-list__item">
@@ -48,8 +57,12 @@ class settings extends Component {
   }
 }
 settings.propTypes = {
-  empty: Proptypes.bool.isRequired,
+  empty: Proptypes.bool,
   listId: Proptypes.string.isRequired
+};
+
+settings.defaultProps = {
+  empty: false
 };
 
 export default settings;

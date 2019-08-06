@@ -1,4 +1,10 @@
-import { getLists, getList, createList, updateList as updList } from '../services/movieDB';
+import {
+  getLists,
+  getList,
+  createList,
+  updateList as updList,
+  clearList as clList
+} from '../services/movieDB';
 
 export const GET_LISTS_LOADING = 'GET_LISTS_LOADING';
 export const GET_LISTS_SUCCESS = 'GET_LISTS_SUCCESS';
@@ -15,6 +21,10 @@ export const CREATE_LIST_FAILED = 'CREATE_LIST_FAILED';
 export const UPDATE_LIST_LOADING = 'UPDATE_LIST_LOADING';
 export const UPDATE_LIST_SUCCESS = 'UPDATE_LIST_SUCCESS';
 export const UPDATE_LIST_FAILED = 'UPDATE_LIST_FAILED';
+
+export const CLEAR_LIST_LOADING = 'CLEAR_LIST_LOADING';
+export const CLEAR_LIST_SUCCESS = 'CLEAR_LIST_SUCCESS';
+export const CLEAR_LIST_FAILED = 'CLEAR_LIST_FAILED';
 
 const getListsLoading = () => ({
   type: GET_LISTS_LOADING
@@ -115,6 +125,30 @@ export const updateList = (title, description, listId) => (
     },
     error => {
       dispatch(updateListFailed());
+    }
+  );
+};
+
+const clearListLoading = () => ({
+  type: CLEAR_LIST_LOADING
+});
+const clearListSuccess = success => ({
+  type: CLEAR_LIST_SUCCESS,
+  success
+});
+const clearListFailed = () => ({
+  type: CLEAR_LIST_FAILED
+});
+
+export const clearList = listId => (dispatch, getState, { storageClient }) => {
+  const accessToken = storageClient.get('ACCESS_TOKEN');
+  dispatch(clearListLoading());
+  return clList(listId, accessToken).then(
+    success => {
+      dispatch(clearListSuccess(success));
+    },
+    error => {
+      dispatch(clearListFailed());
     }
   );
 };
