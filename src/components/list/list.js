@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Proptypes from 'prop-types';
 
 import Movie from './movie-box';
-import Paginator from '../UI/paginator/paginator';
+import Paginator from './paginator/paginator';
 import Spinner from '../UI/Spinner/Spinner';
 import { imagePath } from '../../services/movieDB';
 import Error from '../UI/error';
@@ -78,15 +78,11 @@ class List extends Component {
             <Settings listId={LIST_ID} />
             <div className="list-movies">
               <Paginator
-                pages={listData.totalPages}
-                currentPage={CURRENT_PAGE}
+                // pages={listData.totalPages}
+                // currentPage={CURRENT_PAGE}
                 currentUrl={CURRENT_URL}
+                movies={listData.movies}
               />
-              <div className="list-movies__movies">
-                {listData.movies.map(movie => (
-                  <Movie key={movie.id} image={imagePath + movie.poster_path} />
-                ))}
-              </div>
               <Paginator
                 pages={listData.totalPages}
                 currentPage={CURRENT_PAGE}
