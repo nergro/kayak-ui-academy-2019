@@ -16,15 +16,17 @@ let LIST_ID = '';
 // eslint-disable-next-line react/prefer-stateless-function
 class List extends Component {
   componentDidMount() {
-    const { match, fetchList } = this.props;
+    const { match, fetchList, fetchedLists } = this.props;
     LIST_ID = match.params.id;
     CURRENT_PAGE = match.params.page;
-    fetchList(LIST_ID, CURRENT_PAGE);
+    if (!fetchedLists.includes(LIST_ID)) {
+      fetchList(LIST_ID, CURRENT_PAGE);
+    }
     CURRENT_URL = '/list/' + LIST_ID;
   }
 
   render() {
-    const { listData, loading, error, match } = this.props;
+    const { listData, loading, error } = this.props;
     let runtime = '';
     let revenue = '';
     if (listData.runtime) {
@@ -112,7 +114,8 @@ List.propTypes = {
   listData: Proptypes.object.isRequired,
   match: Proptypes.object.isRequired,
   loading: Proptypes.bool.isRequired,
-  error: Proptypes.bool.isRequired
+  error: Proptypes.bool.isRequired,
+  fetchedLists: Proptypes.array.isRequired
 };
 
 export default withRouter(List);

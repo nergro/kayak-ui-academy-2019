@@ -56,6 +56,7 @@ export const getList = (listId, page) => {
     .then(res => {
       return {
         data: {
+          id: res.data.id,
           items: res.data.total_results,
           rating: res.data.average_rating,
           runtime: res.data.runtime,

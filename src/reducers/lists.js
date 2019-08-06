@@ -23,6 +23,7 @@ const initialState = {
   lists: [],
   loading: false,
   listData: {},
+  fetchedLists: [],
   listTitle: '',
   listDescription: '',
   error: false,
@@ -50,6 +51,8 @@ const auth = (state = initialState, action) => {
         listData: action.data,
         listTitle: action.data.name,
         listDescription: action.data.description,
+        listId: action.data.id,
+        fetchedLists: [...state.fetchedLists, action.data.id.toString()],
         error: false
       };
     case GET_LIST_FAILED:

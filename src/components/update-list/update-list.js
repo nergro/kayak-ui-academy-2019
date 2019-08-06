@@ -10,9 +10,11 @@ import Error from '../UI/error';
 let LIST_ID = '';
 class UpdateList extends Component {
   componentDidMount() {
-    const { match, fetchList } = this.props;
+    const { match, fetchList, title } = this.props;
     LIST_ID = match.params.id;
-    fetchList(LIST_ID, 1);
+    if (!title.length > 0) {
+      fetchList(LIST_ID, 1);
+    }
   }
 
   render() {
