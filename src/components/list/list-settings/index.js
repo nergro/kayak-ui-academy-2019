@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter, Link } from 'react-router-dom';
 import Proptypes from 'prop-types';
 
 class settings extends Component {
@@ -38,25 +39,26 @@ class settings extends Component {
             <div className="settings__arrow-up" />
             <ul className="settings__list">
               <li className="settings-list__item">
-                <a href={editUrl}>EDIT LIST</a>
+                <Link to={editUrl}>EDIT LIST</Link>
               </li>
+
               {!empty ? (
                 <li className="settings-list__item">
-                  <a
-                    href={clearUrl}
+                  <Link
+                    to={clearUrl}
                     onClick={e => this.warning(e, 'Do You really want to CLEAR this list?')}
                   >
                     CLEAR LIST
-                  </a>
+                  </Link>
                 </li>
               ) : null}
               <li className="settings-list__item">
-                <a
-                  href={deleteUrl}
+                <Link
+                  to={deleteUrl}
                   onClick={e => this.warning(e, 'Do You really want to DELETE this list?')}
                 >
                   DELETE LIST
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -74,4 +76,4 @@ settings.defaultProps = {
   empty: false
 };
 
-export default settings;
+export default withRouter(settings);

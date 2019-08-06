@@ -24,8 +24,9 @@ import '../../client/movies/index.scss';
 
 class App extends Component {
   componentDidMount() {
-    const { checkUser } = this.props;
+    const { checkUser, fetchLists } = this.props;
     checkUser();
+    fetchLists();
   }
 
   render() {

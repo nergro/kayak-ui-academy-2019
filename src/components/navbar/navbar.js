@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '../UI/button';
 
@@ -16,11 +16,11 @@ const Navbar = ({ getReqToken, logoutUser, accessToken, history }) => {
     <div className="navbar">
       <div className="navbar-left">
         <div className="navbar__item">
-          <a href="/">Home</a>
+          <Link to="/">Home</Link>
         </div>
         {accessToken ? (
           <div className="navbar__item">
-            <a href="/lists">Lists</a>
+            <Link to="/lists">Lists</Link>
           </div>
         ) : null}
       </div>

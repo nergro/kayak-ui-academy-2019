@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import Proptypes from 'prop-types';
 
 import ListsWrapper from '../lists-wrapper';
@@ -8,16 +8,16 @@ import ListsWrapper from '../lists-wrapper';
 class Lists extends Component {
   componentDidMount() {
     const { fetchLists } = this.props;
-    fetchLists();
+    // fetchLists();
   }
   render() {
     const { lists, loading } = this.props;
     return (
       <div className="lists-container">
         <h1 className="lists-container__title">LISTS</h1>
-        <a href="/list/create" className="custom-button" style={{ textDecoration: 'none' }}>
+        <Link to="/list/create" className="custom-button" style={{ textDecoration: 'none' }}>
           Create New
-        </a>
+        </Link>
         <ListsWrapper lists={lists} loading={loading} />
       </div>
     );
