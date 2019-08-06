@@ -51,9 +51,11 @@ const accessTokenSuccess = (token, id) => ({
   accound_id: id
 });
 
-const accessTokenFailed = () => ({
-  type: ACCESS_TOKEN_FAILED
-});
+const accessTokenFailed = () => {
+  return {
+    type: ACCESS_TOKEN_FAILED
+  };
+};
 
 export const loginUser = () => (dispatch, getState, { storageClient }) => {
   dispatch(accessTokenLoading());
@@ -65,6 +67,9 @@ export const loginUser = () => (dispatch, getState, { storageClient }) => {
       storageClient.set(ACCOUNT_ID, data.account_id);
     },
     error => {
+      storageClient.remove(ACCESS_TOKEN);
+      storageClient.remove(REQUEST_TOKEN);
+      storageClient.remove(ACCOUNT_ID);
       dispatch(accessTokenFailed());
     }
   );
