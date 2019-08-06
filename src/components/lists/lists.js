@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import Proptypes from 'prop-types';
 
 import ListsWrapper from '../lists-wrapper';
-import Button from '../UI/button';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Lists extends Component {
@@ -11,15 +10,14 @@ class Lists extends Component {
     const { fetchLists } = this.props;
     fetchLists();
   }
-  createList = () => {
-    this.props.history.push('/list/create');
-  };
   render() {
     const { lists, loading } = this.props;
     return (
       <div className="lists-container">
         <h1 className="lists-container__title">LISTS</h1>
-        <Button onClick={this.createList}>Create New</Button>
+        <a href="/list/create" className="custom-button" style={{ textDecoration: 'none' }}>
+          Create New
+        </a>
         <ListsWrapper lists={lists} loading={loading} />
       </div>
     );

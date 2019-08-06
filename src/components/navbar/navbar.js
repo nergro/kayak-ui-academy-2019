@@ -1,13 +1,15 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '../UI/button';
 
-const Navbar = ({ getReqToken, logoutUser, accessToken }) => {
+const Navbar = ({ getReqToken, logoutUser, accessToken, history }) => {
   const onLogin = () => {
     getReqToken();
   };
   const onLogout = () => {
     logoutUser();
+    history.push('/');
   };
 
   return (
@@ -40,7 +42,8 @@ const Navbar = ({ getReqToken, logoutUser, accessToken }) => {
 Navbar.propTypes = {
   getReqToken: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  accessToken: PropTypes.string.isRequired
+  accessToken: PropTypes.string.isRequired,
+  history: PropTypes.func.isRequired
 };
 
-export default Navbar;
+export default withRouter(Navbar);

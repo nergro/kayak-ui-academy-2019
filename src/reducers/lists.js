@@ -7,16 +7,22 @@ import {
   GET_LIST_FAILED,
   CREATE_LIST_LOADING,
   CREATE_LIST_SUCCESS,
-  CREATE_LIST_FAILED
+  CREATE_LIST_FAILED,
+  UPDATE_LIST_FAILED,
+  UPDATE_LIST_LOADING,
+  UPDATE_LIST_SUCCESS
 } from '../actions/lists';
 
 const initialState = {
   lists: [],
   loading: false,
   listData: {},
+  listTitle: '',
+  listDescription: '',
   error: false,
   createdListId: '',
-  listPosted: false
+  listPosted: false,
+  listUpdated: false
 };
 
 const auth = (state = initialState, action) => {
@@ -30,7 +36,14 @@ const auth = (state = initialState, action) => {
     case GET_LIST_LOADING:
       return { ...state, loading: true };
     case GET_LIST_SUCCESS:
-      return { ...state, loading: false, listData: action.data, error: false };
+      return {
+        ...state,
+        loading: false,
+        listData: action.data,
+        listTitle: action.data.name,
+        listDescription: action.data.description,
+        error: false
+      };
     case GET_LIST_FAILED:
       return { ...state, loading: false, error: true };
     case CREATE_LIST_LOADING:
@@ -38,7 +51,13 @@ const auth = (state = initialState, action) => {
     case CREATE_LIST_SUCCESS:
       return { ...state, loading: false, createdListId: action.id, listPosted: true };
     case CREATE_LIST_FAILED:
-      return { ...state, loading: false, error: true, listPosted: true };
+      return { ...state, loading: false, error: true, listPosted: false };
+    case UPDATE_LIST_LOADING:
+      return { ...state, loading: true, listUpdated: false };
+    case UPDATE_LIST_SUCCESS:
+      return { ...state, loading: false, listUpdated: true };
+    case UPDATE_LIST_FAILED:
+      return { ...state, loading: false, error: true, listUpdated: false };
     default:
       return state;
   }

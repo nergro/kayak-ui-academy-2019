@@ -15,6 +15,7 @@ import Home from '../home';
 import Lists from '../lists';
 import List from '../list';
 import CreateList from '../create-list';
+import UpdateList from '../update-list';
 import notFound from '../404';
 
 import styles from './app.scss';
@@ -44,6 +45,7 @@ class App extends Component {
                 <Route path="/" exact component={Home} />
                 <Route path="/lists" component={Lists} />
                 <Route path="/list/create" component={CreateList} />
+                <Route path="/list/:id/edit" component={UpdateList} />
                 <Route path="/list/:id/:page" component={List} />
                 <Route component={notFound} />
               </Switch>

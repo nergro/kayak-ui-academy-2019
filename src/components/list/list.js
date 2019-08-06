@@ -8,22 +8,23 @@ import Paginator from '../UI/paginator/paginator';
 import Spinner from '../UI/Spinner/Spinner';
 import { imagePath } from '../../services/movieDB';
 import Error from '../UI/error';
-import Settings from './settings-drop';
+import Settings from './list-settings';
 
 let CURRENT_PAGE = '';
 let CURRENT_URL = '';
+let LIST_ID = '';
 // eslint-disable-next-line react/prefer-stateless-function
 class List extends Component {
   componentDidMount() {
     const { match, fetchList } = this.props;
-    const listId = match.params.id;
+    LIST_ID = match.params.id;
     CURRENT_PAGE = match.params.page;
-    fetchList(listId, CURRENT_PAGE);
-    CURRENT_URL = '/list/' + listId;
+    fetchList(LIST_ID, CURRENT_PAGE);
+    CURRENT_URL = '/list/' + LIST_ID;
   }
 
   render() {
-    const { listData, loading, error } = this.props;
+    const { listData, loading, error, match } = this.props;
     let runtime = '';
     let revenue = '';
     if (listData.runtime) {
@@ -45,6 +46,8 @@ class List extends Component {
         revenue = rev;
       }
     }
+    const listIDD = match.params.id.toString();
+
     return (
       <React.Fragment>
         {loading ? (
@@ -73,7 +76,7 @@ class List extends Component {
                 <p>TOTAL REVENUE</p>
               </div>
             </div>
-            <Settings />
+            <Settings listId={listIDD} />
             <div className="list-movies">
               <Paginator
                 pages={listData.totalPages}
@@ -100,7 +103,7 @@ class List extends Component {
               <h1>{listData.name}</h1>
               <p>{listData.description}</p>
             </div>
-            <Settings empty />
+            <Settings empty listId={listIDD} />
             <Error>List is empty</Error>
           </div>
         )}

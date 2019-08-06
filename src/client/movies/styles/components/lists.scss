@@ -137,14 +137,13 @@
       list-style: none;
     }
     .settings-list__item {
-      margin: 0.3rem;
       white-space: nowrap;
       display: flex;
       justify-content: center;
 
-      button {
+      a {
         text-decoration: none;
-        margin: 0.3rem;
+        margin: 0.6rem;
         padding: 0.5rem 4rem;
         color: $color__white;
         cursor: pointer;
@@ -152,10 +151,10 @@
         border: none;
         width: 95%;
       }
-      button:focus {
+      a:focus {
         outline: none;
       }
-      button:hover {
+      a:hover {
         background: white;
         color: black;
       }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Proptypes from 'prop-types';
 
 class settings extends Component {
   state = {
@@ -12,7 +13,9 @@ class settings extends Component {
     });
   };
   render() {
-    const { empty } = this.props;
+    const { empty, listId } = this.props;
+    const editUrl = '/list/' + listId + '/edit';
+
     return (
       <div className="settings-wrapper">
         <button
@@ -27,15 +30,15 @@ class settings extends Component {
             <div className="settings__arrow-up" />
             <ul className="settings__list">
               <li className="settings-list__item">
-                <button type="button">EDIT LIST</button>
+                <a href={editUrl}>EDIT LIST</a>
               </li>
               {!empty ? (
                 <li className="settings-list__item">
-                  <button type="button">CLEAR LIST</button>
+                  <a href={editUrl}>CLEAR LIST</a>
                 </li>
               ) : null}
               <li className="settings-list__item">
-                <button type="button">DELETE LIST</button>
+                <a href={editUrl}>DELETE LIST</a>
               </li>
             </ul>
           </div>
@@ -44,5 +47,9 @@ class settings extends Component {
     );
   }
 }
+settings.propTypes = {
+  empty: Proptypes.bool.isRequired,
+  listId: Proptypes.string.isRequired
+};
 
 export default settings;

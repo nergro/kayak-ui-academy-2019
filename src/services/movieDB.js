@@ -80,6 +80,18 @@ export const createList = (title, description, accessToken) => {
   });
 };
 
+export const updateList = (title, description, accessToken, listId) => {
+  const data = {
+    name: title,
+    description
+  };
+  return axios
+    .put(`https://api.themoviedb.org/4/list/${listId}`, data, config(accessToken))
+    .then(res => {
+      return res.data.success;
+    });
+};
+
 /* Movies */
 export const getMovies = query => {
   if (moviesMemo[query]) {
