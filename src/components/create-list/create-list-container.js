@@ -1,14 +1,16 @@
 import { connect } from 'react-redux';
 import CreateList from './create-list';
 
-import { checkUser } from '../../actions/auth';
+import { makeList } from '../../actions/lists';
 
 const mapStateToProps = state => ({
-  //   loading: state.auth.loading
+  loading: state.lists.loading,
+  error: state.lists.error,
+  listPosted: state.lists.listPosted
 });
 
 const mapDispatchToProps = {
-  //   checkUser
+  makeList
 };
 
 export default connect(

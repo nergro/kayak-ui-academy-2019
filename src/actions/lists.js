@@ -1,4 +1,4 @@
-import { getLists, getList } from '../services/movieDB';
+import { getLists, getList, createList } from '../services/movieDB';
 
 export const GET_LISTS_LOADING = 'GET_LISTS_LOADING';
 export const GET_LISTS_SUCCESS = 'GET_LISTS_SUCCESS';
@@ -7,6 +7,10 @@ export const GET_LISTS_FAILED = 'GET_LISTS_FAILED';
 export const GET_LIST_LOADING = 'GET_LIST_LOADING';
 export const GET_LIST_SUCCESS = 'GET_LIST_SUCCESS';
 export const GET_LIST_FAILED = 'GET_LIST_FAILED';
+
+export const CREATE_LIST_LOADING = 'CREATE_LIST_LOADING';
+export const CREATE_LIST_SUCCESS = 'CREATE_LIST_SUCCESS';
+export const CREATE_LIST_FAILED = 'CREATE_LIST_FAILED';
 
 const getListsLoading = () => ({
   type: GET_LISTS_LOADING
@@ -37,12 +41,10 @@ export const fetchLists = () => (dispatch, getState, { storageClient }) => {
 const getListLoading = () => ({
   type: GET_LIST_LOADING
 });
-const getListSuccess = data => {
-  return {
-    type: GET_LIST_SUCCESS,
-    data
-  };
-};
+const getListSuccess = data => ({
+  type: GET_LIST_SUCCESS,
+  data
+});
 const getListFailed = () => ({
   type: GET_LIST_FAILED
 });
@@ -55,6 +57,30 @@ export const fetchList = (listId, page) => (dispatch, getState, { storageClient 
     },
     error => {
       dispatch(getListFailed());
+    }
+  );
+};
+
+const createListLoading = () => ({
+  type: CREATE_LIST_LOADING
+});
+const createListSuccess = id => ({
+  type: CREATE_LIST_SUCCESS,
+  id
+});
+const createListFailed = () => ({
+  type: CREATE_LIST_FAILED
+});
+
+export const makeList = (title, description) => (dispatch, getState, { storageClient }) => {
+  const accessToken = storageClient.get('ACCESS_TOKEN');
+  dispatch(createListLoading());
+  return createList(title, description, accessToken).then(
+    id => {
+      dispatch(createListSuccess(id));
+    },
+    error => {
+      dispatch(createListFailed());
     }
   );
 };

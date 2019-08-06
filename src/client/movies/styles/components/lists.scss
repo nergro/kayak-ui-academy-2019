@@ -143,6 +143,12 @@
   .form-button:active {
     background: #c2ae96;
   }
+  .form-error {
+    color: red;
+    text-align: center;
+    margin: 0.2rem auto;
+    font-weight: $font-weight__headings;
+  }
   @include breakpoint-down(xl) {
     .create-list-form {
       width: 30%;

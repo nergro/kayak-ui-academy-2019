@@ -7,6 +7,7 @@ import Movie from './movie-box';
 import Paginator from '../UI/paginator/paginator';
 import Spinner from '../UI/Spinner/Spinner';
 import { imagePath } from '../../services/movieDB';
+import Error from '../UI/error';
 
 let CURRENT_PAGE = '';
 let CURRENT_URL = '';
@@ -20,10 +21,9 @@ class List extends Component {
     CURRENT_URL = '/list/' + listId;
   }
   render() {
-    const { listData, loading } = this.props;
+    const { listData, loading, error } = this.props;
     let runtime = '';
     let revenue = '';
-
     if (listData.runtime) {
       const runtimeHours = Math.floor(listData.runtime / 60);
       const runtimeMinutes = listData.runtime - runtimeHours * 60;
@@ -89,8 +89,16 @@ class List extends Component {
               />
             </div>
           </div>
+        ) : error ? (
+          <Error>Sorry! Something went wrong :(</Error>
         ) : (
-          <h1>Sorry! Something went wrong :(</h1>
+          <div className="list">
+            <div className="list-title">
+              <h1>{listData.name}</h1>
+              <p>{listData.description}</p>
+            </div>
+            <Error>List is empty</Error>
+          </div>
         )}
       </React.Fragment>
     );
@@ -101,7 +109,8 @@ List.propTypes = {
   fetchList: Proptypes.func.isRequired,
   listData: Proptypes.object.isRequired,
   match: Proptypes.object.isRequired,
-  loading: Proptypes.bool.isRequired
+  loading: Proptypes.bool.isRequired,
+  error: Proptypes.bool.isRequired
 };
 
 export default withRouter(List);

@@ -69,6 +69,18 @@ export const getList = (listId, page) => {
     });
 };
 
+export const createList = (title, description, accessToken) => {
+  const data = {
+    name: title,
+    iso_639_1: 'en',
+    description
+  };
+  return axios.post('https://api.themoviedb.org/4/list', data, config(accessToken)).then(res => {
+    return res.data.id;
+  });
+};
+
+/* Movies */
 export const getMovies = query => {
   if (moviesMemo[query]) {
     return Promise.resolve(moviesMemo[query]);
