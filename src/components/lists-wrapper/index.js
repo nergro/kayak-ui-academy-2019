@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import Proptypes from 'prop-types';
 
@@ -9,7 +10,7 @@ const listsWrapper = ({ lists, loading }) => {
     <div className="lists-wrapper">
       {loading ? (
         <Spinner />
-      ) : (
+      ) : lists.length > 0 ? (
         lists.map(list => (
           <List
             key={list.id}
@@ -19,6 +20,8 @@ const listsWrapper = ({ lists, loading }) => {
             rating={list.average_rating.toFixed(2)}
           />
         ))
+      ) : (
+        <h1>No lists created yet</h1>
       )}
     </div>
   );

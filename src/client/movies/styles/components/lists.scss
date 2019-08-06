@@ -11,6 +11,7 @@
     }
   }
   .lists-wrapper {
+    margin-top: 1.5rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -74,8 +75,6 @@
         flex-direction: column;
         align-items: center;
       }
-      @include breakpoint-down(md) {
-      }
     }
     .list-movies {
       display: flex;
@@ -94,6 +93,76 @@
     margin: 1rem 2rem;
     img {
       max-height: 350px;
+    }
+  }
+
+  /* Create list form */
+  .create-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem auto;
+  }
+  .create-list-form {
+    width: 20%;
+  }
+  .form-control {
+    margin-bottom: 0.6rem;
+  }
+
+  .form-control input,
+  .form-control textarea {
+    width: 100%;
+    font: inherit;
+    padding-left: 0.7rem;
+    border: 3px solid #ccc;
+  }
+  .form-control textarea {
+    padding-top: 0.7rem;
+    resize: none;
+  }
+  .form-control input {
+    height: 4rem;
+  }
+  .form-control input:focus,
+  .form-control textarea:focus {
+    outline: 3px solid #181c1e;
+  }
+
+  .form-button {
+    padding: 1rem 2rem;
+    color: $color__white;
+    font-weight: bold;
+    border: none;
+    background: #252525;
+    cursor: pointer;
+  }
+
+  .form-button:hover,
+  .form-button:active {
+    background: #c2ae96;
+  }
+  @include breakpoint-down(xl) {
+    .create-list-form {
+      width: 30%;
+    }
+  }
+  @include breakpoint-down(lg) {
+    .create-list-form {
+      width: 40%;
+    }
+  }
+
+  @include breakpoint-down(md) {
+    .create-list-form {
+      width: 60%;
+    }
+  }
+
+  @include breakpoint-down(sm) {
+    .create-list-form {
+      width: 80%;
     }
   }
 }

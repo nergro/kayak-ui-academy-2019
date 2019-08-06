@@ -40,4 +40,19 @@
       color: darken($color__link, 30%);
     }
   }
+
+  .custom-button {
+    background: $color__royal-blue;
+    border: none;
+    border-radius: 5px;
+    color: $color__white;
+    padding: 0.5rem 1rem;
+    font-size: 1.8rem;
+
+    &:hover,
+    &:active {
+      background: #1444b3;
+      color: $color__white;
+    }
+  }
 }

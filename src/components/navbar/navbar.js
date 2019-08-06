@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '../UI/button';
 
 const Navbar = ({ getReqToken, logoutUser, accessToken }) => {
   const onLogin = () => {
@@ -24,15 +25,11 @@ const Navbar = ({ getReqToken, logoutUser, accessToken }) => {
       <div className="navbar-right">
         {accessToken ? (
           <div className="navbar__item navbar__item--login">
-            <button type="button" onClick={onLogout}>
-              Logout
-            </button>
+            <Button onClick={onLogout}>Logout</Button>
           </div>
         ) : (
           <div className="navbar__item navbar__item--login">
-            <button type="button" onClick={onLogin}>
-              Login
-            </button>
+            <Button onClick={onLogin}>Login</Button>
           </div>
         )}
       </div>
