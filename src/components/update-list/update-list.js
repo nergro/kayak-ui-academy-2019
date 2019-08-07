@@ -7,35 +7,18 @@ import ListForm from '../list-form';
 import Spinner from '../UI/Spinner/Spinner';
 import Error from '../UI/error';
 
-let LIST_ID = '';
 class UpdateList extends Component {
-  componentDidMount() {
-    const { match, fetchList, title } = this.props;
-    LIST_ID = match.params.id;
-    if (!title.length > 0) {
-      fetchList(LIST_ID, 1);
-    }
-  }
-
   render() {
-    const { loading, error, listUpdated, title, description, updateList } = this.props;
-    const redirectUrl = '/list/' + LIST_ID + '/1';
+    const { loading, updateList, list } = this.props;
     return (
       <div className="create-list">
         <h1>Update List</h1>
         {loading ? (
           <Spinner />
-        ) : error ? (
-          <Error>Sorry! Something went wrong :(</Error>
-        ) : listUpdated ? (
-          <Redirect to={redirectUrl} />
+        ) : list ? (
+          <ListForm title={list.name} description={list.description} updateList={updateList} />
         ) : (
-          <ListForm
-            title={title}
-            description={description}
-            updateList={updateList}
-            listId={LIST_ID}
-          />
+          <Error>Sorry! Something went wrong :(</Error>
         )}
       </div>
     );
@@ -43,14 +26,13 @@ class UpdateList extends Component {
 }
 
 UpdateList.propTypes = {
-  match: Proptypes.object.isRequired,
-  fetchList: Proptypes.func.isRequired,
   loading: Proptypes.bool.isRequired,
-  error: Proptypes.bool.isRequired,
-  listUpdated: Proptypes.bool.isRequired,
-  title: Proptypes.string.isRequired,
-  description: Proptypes.string.isRequired,
-  updateList: Proptypes.func.isRequired
+  updateList: Proptypes.func.isRequired,
+  list: Proptypes.object
+};
+
+UpdateList.defaultProps = {
+  list: null
 };
 
 export default withRouter(UpdateList);

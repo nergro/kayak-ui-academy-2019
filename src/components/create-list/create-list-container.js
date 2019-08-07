@@ -5,8 +5,7 @@ import { makeList } from '../../actions/lists';
 
 const mapStateToProps = state => ({
   loading: state.lists.loading,
-  error: state.lists.error,
-  listPosted: state.lists.listPosted
+  error: state.lists.error
 });
 
 const mapDispatchToProps = {

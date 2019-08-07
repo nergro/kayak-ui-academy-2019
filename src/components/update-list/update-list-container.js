@@ -3,12 +3,17 @@ import CreateList from './update-list';
 
 import { updateList, fetchList } from '../../actions/lists';
 
-const mapStateToProps = state => ({
+const findList = (lists, listId) => {
+  const list = lists.find(l => {
+    return l.data.id.toString() === listId;
+  });
+  return list ? list.data : null;
+};
+
+const mapStateToProps = (state, ownProps) => ({
   loading: state.lists.loading,
   error: state.lists.error,
-  listUpdated: state.lists.listUpdated,
-  title: state.lists.listTitle,
-  description: state.lists.listDescription
+  list: findList(state.lists.fetchedLists, ownProps.match.params.id)
 });
 
 const mapDispatchToProps = {

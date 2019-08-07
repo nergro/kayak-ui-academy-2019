@@ -8,14 +8,19 @@ import Error from '../UI/error';
 let LIST_ID = '';
 class ClearList extends Component {
   componentDidMount() {
-    const { clearList, deleteList, match } = this.props;
+    const { clearList, deleteList, match, history } = this.props;
     LIST_ID = match.params.id;
     const url = match.url.split('/');
     if (url.includes('clear')) {
-      clearList(LIST_ID);
+      const redirectUrl = '/list/' + LIST_ID + '/1';
+      clearList(LIST_ID).then(res => {
+        history.push(redirectUrl);
+      });
     }
     if (url.includes('delete')) {
-      deleteList(LIST_ID);
+      deleteList(LIST_ID).then(res => {
+        history.push('/lists');
+      });
     }
   }
   render() {
@@ -23,15 +28,7 @@ class ClearList extends Component {
     const redirectUrl = '/list/' + LIST_ID + '/1';
     return (
       <React.Fragment>
-        {loading ? (
-          <Spinner />
-        ) : error ? (
-          <Error>Sorry! Something went wrong:(</Error>
-        ) : listCleared && LIST_ID.length > 0 ? (
-          <Redirect to={redirectUrl} />
-        ) : listDeleted && LIST_ID.length > 0 ? (
-          <Redirect to="/lists" />
-        ) : null}
+        {loading ? <Spinner /> : <Error>Sorry! Something went wrong:(</Error>}
       </React.Fragment>
     );
   }

@@ -21,7 +21,8 @@ class settings extends Component {
   };
 
   render() {
-    const { empty, listId } = this.props;
+    const { empty, match } = this.props;
+    const listId = match.params.id;
     const editUrl = '/list/' + listId + '/edit';
     const clearUrl = '/list/' + listId + '/clear';
     const deleteUrl = '/list/' + listId + '/delete';

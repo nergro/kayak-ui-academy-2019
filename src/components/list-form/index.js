@@ -1,5 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import Proptypes from 'prop-types';
 
 class listForm extends Component {
@@ -27,14 +28,19 @@ class listForm extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { makeList, updateList, listId } = this.props;
+    const { makeList, updateList, match, history } = this.props;
+    const listId = match.params.id;
     const title = this.state.title;
     const description = this.state.description;
     if (title.length >= 3 && description.length >= 3) {
-      if (!this.state.createList && updateList && listId) {
-        updateList(title, description, listId);
+      if (!this.state.createList && updateList) {
+        updateList(title, description, listId).then(res => {
+          history.push('/list/' + listId + '/1');
+        });
       } else {
-        makeList(title, description);
+        makeList(title, description).then(res => {
+          history.push('/lists');
+        });
       }
     } else {
       this.setState({
@@ -83,17 +89,17 @@ class listForm extends Component {
 }
 
 listForm.propTypes = {
-  title: Proptypes.string.isRequired,
-  description: Proptypes.string.isRequired,
+  title: Proptypes.string,
+  description: Proptypes.string,
   makeList: Proptypes.func,
-  updateList: Proptypes.func,
-  listId: Proptypes.string
+  updateList: Proptypes.func
 };
 
 listForm.defaultProps = {
   makeList: null,
   updateList: null,
-  listId: ''
+  title: '',
+  description: ''
 };
 
-export default listForm;
+export default withRouter(listForm);

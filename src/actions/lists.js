@@ -98,10 +98,9 @@ export const makeList = (title, description) => (dispatch, getState, { storageCl
   return createList(title, description, accessToken).then(
     id => {
       dispatch(createListSuccess(id));
+      dispatch(fetchLists());
     },
     error => {
-      console.log(error);
-      console.log(error.message);
       dispatch(createListFailed());
     }
   );
@@ -128,6 +127,7 @@ export const updateList = (title, description, listId) => (
   return updList(title, description, accessToken, listId).then(
     success => {
       dispatch(updateListSuccess(success));
+      dispatch(fetchLists());
     },
     error => {
       dispatch(updateListFailed());
@@ -176,6 +176,7 @@ export const deleteList = listId => (dispatch, getState, { storageClient }) => {
   return delList(listId, accessToken).then(
     success => {
       dispatch(deleteListSuccess(success));
+      dispatch(fetchLists());
     },
     error => {
       dispatch(deleteListFailed());

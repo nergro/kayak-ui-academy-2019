@@ -7,7 +7,7 @@ import ListsWrapper from '../lists-wrapper';
 // eslint-disable-next-line react/prefer-stateless-function
 class Lists extends Component {
   componentDidMount() {
-    const { fetchLists } = this.props;
+    const { fetchLists, listPosted } = this.props;
     // fetchLists();
   }
   render() {

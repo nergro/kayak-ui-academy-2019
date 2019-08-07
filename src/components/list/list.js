@@ -78,7 +78,7 @@ class List extends Component {
                 <p>TOTAL REVENUE</p>
               </div>
             </div>
-            <Settings listId={LIST_ID} />
+            <Settings />
             <div className="list-movies">
               <Paginator currentUrl={CURRENT_URL} movies={list.movies} />
             </div>

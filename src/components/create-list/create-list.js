@@ -7,7 +7,7 @@ import ListForm from '../list-form';
 import Spinner from '../UI/Spinner/Spinner';
 import Error from '../UI/error';
 
-const createList = ({ loading, error, listPosted, makeList }) => {
+const createList = ({ loading, error, makeList }) => {
   return (
     <div className="create-list">
       <h1>Create List</h1>
@@ -15,8 +15,6 @@ const createList = ({ loading, error, listPosted, makeList }) => {
         <Spinner />
       ) : error ? (
         <Error>Sorry! Something went wrong :(</Error>
-      ) : listPosted ? (
-        <Redirect to="/lists" />
       ) : (
         <ListForm makeList={makeList} />
       )}
@@ -27,7 +25,6 @@ const createList = ({ loading, error, listPosted, makeList }) => {
 createList.propTypes = {
   loading: Proptypes.bool.isRequired,
   error: Proptypes.bool.isRequired,
-  listPosted: Proptypes.bool.isRequired,
   makeList: Proptypes.func.isRequired
 };
 

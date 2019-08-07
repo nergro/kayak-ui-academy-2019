@@ -24,9 +24,8 @@ import '../../client/movies/index.scss';
 
 class App extends Component {
   componentDidMount() {
-    const { checkUser, fetchLists } = this.props;
+    const { checkUser } = this.props;
     checkUser();
-    // fetchLists();
   }
 
   render() {
@@ -71,7 +70,11 @@ class App extends Component {
 
 App.propTypes = {
   loading: PropTypes.bool.isRequired,
-  checkUser: PropTypes.func.isRequired
+  checkUser: PropTypes.func.isRequired,
+  accessToken: PropTypes.string
 };
 
+App.defaultProps = {
+  accessToken: null
+};
 export default withRouter(hot(App));
