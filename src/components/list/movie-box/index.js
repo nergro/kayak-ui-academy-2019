@@ -17,12 +17,18 @@ const movie = ({ image, title, description, rating, comment, toggleModal, mediaT
         <p>{description}</p>
         <div className="movie-box-bottom__comment">
           {comment ? (
-            <p>{comment}</p>
+            <React.Fragment>
+              <p>{comment}</p>
+              <span className="movie-box-bottom__comment--edit">
+                <i className="fas fa-pencil-alt" onClick={() => toggleModal(mediaType, id)} />
+              </span>
+            </React.Fragment>
           ) : (
             <button
               type="button"
               className="custom-button"
               onClick={() => toggleModal(mediaType, id)}
+              style={{ fontSize: '1.3rem' }}
             >
               ADD COMMENT
             </button>

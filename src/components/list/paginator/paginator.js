@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
+import Proptypes from 'prop-types';
 import Movie from '../movie-box';
 import { imagePath } from '../../../services/movieDB';
 
@@ -66,6 +67,14 @@ const paginator = ({ currentUrl, movies, match, comments, toggleModal }) => {
       </div>
     </div>
   );
+};
+
+paginator.propTypes = {
+  currentUrl: Proptypes.string.isRequired,
+  movies: Proptypes.array.isRequired,
+  match: Proptypes.object.isRequired,
+  comments: Proptypes.object.isRequired,
+  toggleModal: Proptypes.func.isRequired
 };
 
 export default withRouter(paginator);

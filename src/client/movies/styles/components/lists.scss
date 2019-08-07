@@ -216,8 +216,20 @@
         border-radius: 0 0 10px 10px;
         margin-top: auto;
         text-align: center;
+        display: flex;
+        justify-content: center;
         p {
+          display: inline;
+          flex-grow: 1;
           font-weight: $font-weight__headings;
+        }
+        .movie-box-bottom__comment--edit {
+          color: #ff690f;
+          margin-right: 1rem;
+          cursor: pointer;
+          &:hover {
+            color: #ff6b0f86;
+          }
         }
       }
     }

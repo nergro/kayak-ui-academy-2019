@@ -17,7 +17,8 @@ class List extends Component {
   state = {
     showModal: false,
     mediaType: '',
-    id: 0
+    id: 0,
+    comment: ''
   };
 
   toggleModal = (mediaType, id) => {
@@ -70,7 +71,7 @@ class List extends Component {
     return runtimeHours + 'H ' + runtimeMinutes + 'M';
   };
   render() {
-    const { list, loading, match, addComment } = this.props;
+    const { list, loading, match } = this.props;
     const comments = list ? this.makeCommentsObject(list.comments) : null;
     LIST_ID = match.params.id;
     CURRENT_PAGE = match.params.page;
@@ -98,10 +99,6 @@ class List extends Component {
               show={this.state.showModal}
               onBackdropClick={this.toggleModal}
               submitComment={this.submitComment}
-              // mediaType={this.state.mediaType}
-              // id={this.state.id}
-              // redirectUrl={CURRENT_URL + '/1'}
-              // listId={LIST_ID}
             />
             <div className="list-title">
               <h1>{list.name}</h1>
