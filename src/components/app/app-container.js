@@ -5,7 +5,8 @@ import { checkUser } from '../../actions/auth';
 import { fetchLists } from '../../actions/lists';
 
 const mapStateToProps = state => ({
-  loading: state.auth.loading
+  loading: state.auth.loading,
+  accessToken: state.auth.access_token
 });
 
 const mapDispatchToProps = {

@@ -17,7 +17,7 @@ import List from '../list';
 import CreateList from '../create-list';
 import UpdateList from '../update-list';
 import ClearDeleteList from '../clear-list';
-import notFound from '../404';
+import Error from '../UI/error';
 
 import styles from './app.scss';
 import '../../client/movies/index.scss';
@@ -26,11 +26,11 @@ class App extends Component {
   componentDidMount() {
     const { checkUser, fetchLists } = this.props;
     checkUser();
-    fetchLists();
+    // fetchLists();
   }
 
   render() {
-    const { loading } = this.props;
+    const { loading, accessToken } = this.props;
     return (
       <div className={styles.container}>
         {loading ? (
@@ -43,16 +43,23 @@ class App extends Component {
             </HeaderWrapper>
 
             <div className="page-content">
-              <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/lists" component={Lists} />
-                <Route path="/list/create" component={CreateList} />
-                <Route path="/list/:id/edit" component={UpdateList} />
-                <Route path="/list/:id/clear" component={ClearDeleteList} />
-                <Route path="/list/:id/delete" component={ClearDeleteList} />
-                <Route path="/list/:id/:page" component={List} />
-                <Route component={notFound} />
-              </Switch>
+              {accessToken ? (
+                <Switch>
+                  <Route path="/" exact component={Home} />
+                  <Route path="/lists" component={Lists} />
+                  <Route path="/list/create" component={CreateList} />
+                  <Route path="/list/:id/edit" component={UpdateList} />
+                  <Route path="/list/:id/clear" component={ClearDeleteList} />
+                  <Route path="/list/:id/delete" component={ClearDeleteList} />
+                  <Route path="/list/:id/:page" component={List} />
+                  <Route render={() => <Error>404. Page not found.</Error>} />
+                </Switch>
+              ) : (
+                <Switch>
+                  <Route path="/" exact component={Home} />
+                  <Route render={() => <Error>404. Page not found.</Error>} />
+                </Switch>
+              )}
             </div>
             <Footer />
           </React.Fragment>

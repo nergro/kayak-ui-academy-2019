@@ -8,12 +8,13 @@ const findList = (lists, listId) => {
   const list = lists.find(l => {
     return l.data.id.toString() === listId;
   });
-  return list;
+  return list ? list.data : null;
 };
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    list: findList(state.lists.fetchedLists, ownProps.match.params.id).data
+    list: findList(state.lists.fetchedLists, ownProps.match.params.id),
+    loading: state.lists.loading
   };
 };
 

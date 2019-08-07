@@ -1,4 +1,5 @@
 import { getRequestToken, getAccessToken } from '../services/movieDB';
+import { fetchLists } from './lists';
 
 export const REQUEST_TOKEN_LOADING = 'REQUEST_TOKEN_START';
 export const REQUEST_TOKEN_SUCCESS = 'REQUEST_TOKEN_SUCCESS';
@@ -65,6 +66,7 @@ export const loginUser = () => (dispatch, getState, { storageClient }) => {
       dispatch(accessTokenSuccess(data.access_token, data.account_id));
       storageClient.set(ACCESS_TOKEN, data.access_token);
       storageClient.set(ACCOUNT_ID, data.account_id);
+      dispatch(fetchLists());
     },
     error => {
       storageClient.remove(ACCESS_TOKEN);

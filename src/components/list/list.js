@@ -1,55 +1,60 @@
+/* eslint-disable prefer-template */
 /* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Proptypes from 'prop-types';
 
-import Movie from './movie-box';
 import Paginator from './paginator/paginator';
 import Spinner from '../UI/Spinner/Spinner';
-import { imagePath } from '../../services/movieDB';
 import Error from '../UI/error';
 import Settings from './list-settings';
 
 let CURRENT_PAGE = '';
 let CURRENT_URL = '';
 let LIST_ID = '';
-// let LIST_DATA = {};
-// eslint-disable-next-line react/prefer-stateless-function
 class List extends Component {
+  convertRevenue = revenue => {
+    const billion = 1000000000;
+    const million = 1000000;
+    const thousand = 1000;
+    if (revenue > billion) {
+      return Math.floor(revenue / billion) + 'B';
+    }
+    if (revenue > million) {
+      return Math.floor(revenue / million) + 'M';
+    }
+    if (revenue > thousand) {
+      return Math.floor(revenue / thousand) + 'K';
+    }
+    return revenue;
+  };
+  convertRuntime = runtime => {
+    const runtimeHours = Math.floor(runtime / 60);
+    const runtimeMinutes = runtime - runtimeHours * 60;
+    return runtimeHours + 'H ' + runtimeMinutes + 'M';
+  };
   render() {
-    const { list, loading, error, match } = this.props;
+    const { list, loading, match } = this.props;
     LIST_ID = match.params.id;
     CURRENT_PAGE = match.params.page;
     CURRENT_URL = '/list/' + LIST_ID;
 
-    let runtime = '';
-    let revenue = '';
-    if (list.runtime) {
-      const runtimeHours = Math.floor(list.runtime / 60);
-      const runtimeMinutes = list.runtime - runtimeHours * 60;
-      runtime = runtimeHours + 'H ' + runtimeMinutes + 'M';
-
-      const billion = 1000000000;
-      const million = 1000000;
-      const thousand = 1000;
-      const rev = list.revenue;
-      if (rev > billion) {
-        revenue = Math.floor(rev / billion) + 'B';
-      } else if (rev > million) {
-        revenue = Math.floor(rev / million) + 'M';
-      } else if (rev > thousand) {
-        revenue = Math.floor(rev / thousand) + 'K';
-      } else {
-        revenue = rev;
-      }
-    }
-    console.log();
-
+    const runtime = list ? this.convertRuntime(list.runtime) : '';
+    const revenue = list ? this.convertRevenue(list.revenue) : '';
     return (
       <React.Fragment>
         {loading ? (
           <Spinner />
-        ) : list.items ? (
+        ) : list && list.items === 0 ? (
+          <div className="list">
+            <div className="list-title">
+              <h1>{list.name}</h1>
+              <p>{list.description}</p>
+            </div>
+            <Settings empty listId={LIST_ID} />
+            <Error>List is empty</Error>
+          </div>
+        ) : list ? (
           <div className="list">
             <div className="list-title">
               <h1>{list.name}</h1>
@@ -75,30 +80,11 @@ class List extends Component {
             </div>
             <Settings listId={LIST_ID} />
             <div className="list-movies">
-              <Paginator
-                // pages={listData.totalPages}
-                // currentPage={CURRENT_PAGE}
-                currentUrl={CURRENT_URL}
-                movies={list.movies}
-              />
-              <Paginator
-                pages={list.totalPages}
-                currentPage={CURRENT_PAGE}
-                currentUrl={CURRENT_URL}
-              />
+              <Paginator currentUrl={CURRENT_URL} movies={list.movies} />
             </div>
           </div>
-        ) : error ? (
-          <Error>Sorry! Something went wrong :(</Error>
         ) : (
-          <div className="list">
-            <div className="list-title">
-              <h1>{list.name}</h1>
-              <p>{list.description}</p>
-            </div>
-            <Settings empty listId={LIST_ID} />
-            <Error>List is empty</Error>
-          </div>
+          <Error>Sorry! Something went wrong :(</Error>
         )}
       </React.Fragment>
     );
@@ -106,9 +92,13 @@ class List extends Component {
 }
 
 List.propTypes = {
-  match: Proptypes.object.isRequired
-  // loading: Proptypes.bool.isRequired,
-  // error: Proptypes.bool.isRequired
+  match: Proptypes.object.isRequired,
+  list: Proptypes.object,
+  loading: Proptypes.bool.isRequired
+};
+
+List.defaultProps = {
+  list: null
 };
 
 export default withRouter(List);

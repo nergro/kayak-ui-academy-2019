@@ -11,14 +11,14 @@ class Lists extends Component {
     // fetchLists();
   }
   render() {
-    const { lists, loading } = this.props;
+    const { lists, loading, error } = this.props;
     return (
       <div className="lists-container">
         <h1 className="lists-container__title">LISTS</h1>
         <Link to="/list/create" className="custom-button" style={{ textDecoration: 'none' }}>
           Create New
         </Link>
-        <ListsWrapper lists={lists} loading={loading} />
+        <ListsWrapper lists={lists} loading={loading} error={error} />
       </div>
     );
   }
