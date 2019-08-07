@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import CreateList from './update-list';
 
-import { updateList, fetchList } from '../../actions/lists';
+import { updateList } from '../../actions/lists';
 
 const findList = (lists, listId) => {
   const list = lists.find(l => {
@@ -17,8 +17,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  updateList,
-  fetchList
+  updateList
 };
 
 export default connect(

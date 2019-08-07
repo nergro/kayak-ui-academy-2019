@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import ListForm from '../list-form';
 import Spinner from '../UI/Spinner/Spinner';

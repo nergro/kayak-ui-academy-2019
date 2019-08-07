@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import List from './list';
 
-import { fetchList } from '../../actions/lists';
+import { addComment } from '../../actions/lists';
 
 const findList = (lists, listId) => {
   const list = lists.find(l => {
@@ -18,9 +18,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = {
-  fetchList
-};
+const mapDispatchToProps = { addComment };
 
 export default connect(
   mapStateToProps,

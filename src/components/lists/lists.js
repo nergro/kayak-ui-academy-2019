@@ -6,10 +6,6 @@ import ListsWrapper from '../lists-wrapper';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Lists extends Component {
-  componentDidMount() {
-    const { fetchLists, listPosted } = this.props;
-    // fetchLists();
-  }
   render() {
     const { lists, loading, error } = this.props;
     console.log(lists);
@@ -26,9 +22,9 @@ class Lists extends Component {
 }
 
 Lists.propTypes = {
-  fetchLists: Proptypes.func.isRequired,
   lists: Proptypes.array.isRequired,
-  loading: Proptypes.bool.isRequired
+  loading: Proptypes.bool.isRequired,
+  error: Proptypes.bool.isRequired
 };
 
 export default withRouter(Lists);

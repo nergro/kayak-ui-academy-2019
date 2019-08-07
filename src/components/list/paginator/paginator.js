@@ -4,7 +4,7 @@ import Movie from '../movie-box';
 import { imagePath } from '../../../services/movieDB';
 
 const MOVIES_PER_PAGE = 5;
-const paginator = ({ currentUrl, movies, match }) => {
+const paginator = ({ currentUrl, movies, match, comments, toggleModal }) => {
   const pages = movies ? Math.ceil(movies.length / MOVIES_PER_PAGE) : 0;
   const currentPage = match.params.page;
   const previousPage = +currentPage - 1;
@@ -48,7 +48,6 @@ const paginator = ({ currentUrl, movies, match }) => {
       <div className="list-movies__movies">
         {moviesArr
           ? moviesArr.map(movie => {
-              console.log(movie);
               return (
                 <Movie
                   key={movie.id}
@@ -56,6 +55,10 @@ const paginator = ({ currentUrl, movies, match }) => {
                   title={movie.name ? movie.name : movie.title}
                   description={movie.overview}
                   rating={movie.vote_average}
+                  comment={comments[movie.id]}
+                  mediaType={movie.media_type}
+                  id={movie.id}
+                  toggleModal={toggleModal}
                 />
               );
             })

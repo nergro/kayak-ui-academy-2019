@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Proptypes from 'prop-types';
+import ModalForm from '../UI/modal-form';
 
 import Paginator from './paginator/paginator';
 import Spinner from '../UI/Spinner/Spinner';
@@ -13,6 +14,41 @@ let CURRENT_PAGE = '';
 let CURRENT_URL = '';
 let LIST_ID = '';
 class List extends Component {
+  state = {
+    showModal: false,
+    mediaType: '',
+    id: 0
+  };
+
+  toggleModal = (mediaType, id) => {
+    this.setState(() => ({
+      showModal: !this.state.showModal,
+      mediaType,
+      id
+    }));
+  };
+  submitComment = comment => {
+    const { addComment, history } = this.props;
+    const data = {
+      media_type: this.state.mediaType,
+      media_id: this.state.id,
+      comment
+    };
+    addComment(LIST_ID, data).then(res => {
+      history.push(CURRENT_URL + '/1');
+      this.setState({
+        showModal: false
+      });
+    });
+  };
+  makeCommentsObject = comments => {
+    const obj = { ...comments };
+    const newObj = {};
+    Object.keys(obj).map(key => {
+      newObj[key.split(':')[1]] = obj[key];
+    });
+    return newObj;
+  };
   convertRevenue = revenue => {
     const billion = 1000000000;
     const million = 1000000;
@@ -34,14 +70,15 @@ class List extends Component {
     return runtimeHours + 'H ' + runtimeMinutes + 'M';
   };
   render() {
-    const { list, loading, match } = this.props;
-    console.log(list);
+    const { list, loading, match, addComment } = this.props;
+    const comments = list ? this.makeCommentsObject(list.comments) : null;
     LIST_ID = match.params.id;
     CURRENT_PAGE = match.params.page;
     CURRENT_URL = '/list/' + LIST_ID;
 
     const runtime = list ? this.convertRuntime(list.runtime) : '';
     const revenue = list ? this.convertRevenue(list.revenue) : '';
+
     return (
       <React.Fragment>
         {loading ? (
@@ -57,6 +94,15 @@ class List extends Component {
           </div>
         ) : list ? (
           <div className="list">
+            <ModalForm
+              show={this.state.showModal}
+              onBackdropClick={this.toggleModal}
+              submitComment={this.submitComment}
+              // mediaType={this.state.mediaType}
+              // id={this.state.id}
+              // redirectUrl={CURRENT_URL + '/1'}
+              // listId={LIST_ID}
+            />
             <div className="list-title">
               <h1>{list.name}</h1>
               <p>{list.description}</p>
@@ -81,7 +127,12 @@ class List extends Component {
             </div>
             <Settings />
             <div className="list-movies">
-              <Paginator currentUrl={CURRENT_URL} movies={list.movies} />
+              <Paginator
+                currentUrl={CURRENT_URL}
+                movies={list.movies}
+                comments={comments}
+                toggleModal={this.toggleModal}
+              />
             </div>
           </div>
         ) : (
@@ -95,7 +146,8 @@ class List extends Component {
 List.propTypes = {
   match: Proptypes.object.isRequired,
   list: Proptypes.object,
-  loading: Proptypes.bool.isRequired
+  loading: Proptypes.bool.isRequired,
+  addComment: Proptypes.func.isRequired
 };
 
 List.defaultProps = {

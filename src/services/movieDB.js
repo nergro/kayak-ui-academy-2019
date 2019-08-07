@@ -155,3 +155,11 @@ export const getMoviesList = ids => {
 
   return Promise.all(promises);
 };
+
+export const addCommentToMovie = (listId, accessToken, data) => {
+  return axios
+    .put(`https://api.themoviedb.org/4/list/${listId}/items`, data, config(accessToken))
+    .then(res => {
+      return res.data.success;
+    });
+};
