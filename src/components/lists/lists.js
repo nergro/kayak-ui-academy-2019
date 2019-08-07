@@ -12,6 +12,7 @@ class Lists extends Component {
   }
   render() {
     const { lists, loading, error } = this.props;
+    console.log(lists);
     return (
       <div className="lists-container">
         <h1 className="lists-container__title">LISTS</h1>

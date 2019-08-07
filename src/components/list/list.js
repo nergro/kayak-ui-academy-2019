@@ -35,6 +35,7 @@ class List extends Component {
   };
   render() {
     const { list, loading, match } = this.props;
+    console.log(list);
     LIST_ID = match.params.id;
     CURRENT_PAGE = match.params.page;
     CURRENT_URL = '/list/' + LIST_ID;

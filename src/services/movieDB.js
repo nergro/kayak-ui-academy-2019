@@ -78,7 +78,8 @@ export const getList = (listId, page) => {
           totalPages: res.data.total_pages,
           movies: res.data.results,
           name: res.data.name,
-          description: res.data.description
+          description: res.data.description,
+          comments: res.data.comments
         }
       };
     });

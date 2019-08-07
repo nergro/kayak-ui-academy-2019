@@ -1,16 +1,33 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
-const movie = props => {
+const movie = ({ image, title, description, rating }) => {
   return (
     <div className="movie-box">
-      <img src={props.image} alt="Movie poster" />
+      <div className="movie-box-top">
+        <img src={image} alt="Movie poster" />
+      </div>
+      <div className="movie-box-bottom">
+        <h2>{title}</h2>
+        <h3>
+          <i className="fas fa-star" />
+          {rating}
+          <i className="fas fa-star" />
+        </h3>
+        <p>{description}</p>
+        <div className="movie-box-bottom__comment">
+          <p>This is the cooled movie ever made</p>
+        </div>
+      </div>
     </div>
   );
 };
 
 movie.propTypes = {
-  image: Proptypes.string.isRequired
+  image: Proptypes.string.isRequired,
+  title: Proptypes.string.isRequired,
+  description: Proptypes.string.isRequired,
+  rating: Proptypes.string.isRequired
 };
 
 export default movie;

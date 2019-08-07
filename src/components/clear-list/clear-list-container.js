@@ -4,10 +4,7 @@ import ClearList from './clear-list';
 import { clearList, deleteList } from '../../actions/lists';
 
 const mapStateToProps = state => ({
-  loading: state.lists.loading,
-  error: state.lists.error,
-  listCleared: state.lists.listCleared,
-  listDeleted: state.lists.listDeleted
+  loading: state.lists.loading
 });
 
 const mapDispatchToProps = {

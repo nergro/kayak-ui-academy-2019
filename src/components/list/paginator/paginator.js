@@ -47,7 +47,18 @@ const paginator = ({ currentUrl, movies, match }) => {
 
       <div className="list-movies__movies">
         {moviesArr
-          ? moviesArr.map(movie => <Movie key={movie.id} image={imagePath + movie.poster_path} />)
+          ? moviesArr.map(movie => {
+              console.log(movie);
+              return (
+                <Movie
+                  key={movie.id}
+                  image={imagePath + movie.poster_path}
+                  title={movie.name ? movie.name : movie.title}
+                  description={movie.overview}
+                  rating={movie.vote_average}
+                />
+              );
+            })
           : null}
       </div>
     </div>

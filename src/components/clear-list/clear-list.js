@@ -24,7 +24,7 @@ class ClearList extends Component {
     }
   }
   render() {
-    const { loading, error, listCleared, listDeleted } = this.props;
+    const { loading } = this.props;
     const redirectUrl = '/list/' + LIST_ID + '/1';
     return (
       <React.Fragment>
@@ -38,17 +38,12 @@ ClearList.propTypes = {
   clearList: Proptypes.func,
   deleteList: Proptypes.func,
   match: Proptypes.object.isRequired,
-  loading: Proptypes.bool.isRequired,
-  error: Proptypes.bool.isRequired,
-  listCleared: Proptypes.bool,
-  listDeleted: Proptypes.bool
+  loading: Proptypes.bool.isRequired
 };
 
 ClearList.defaultProps = {
   clearList: null,
-  deleteList: null,
-  listCleared: false,
-  listDeleted: false
+  deleteList: null
 };
 
 export default withRouter(ClearList);

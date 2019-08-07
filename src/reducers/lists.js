@@ -24,14 +24,8 @@ const initialState = {
   fetchedLists: [],
   loading: false,
   listData: {},
-  listTitle: '',
-  listDescription: '',
   error: false,
-  createdListId: '',
-  listPosted: false,
-  listUpdated: false,
-  listCleared: false,
-  listDeleted: false
+  createdListId: ''
 };
 
 const auth = (state = initialState, action) => {
@@ -54,9 +48,6 @@ const auth = (state = initialState, action) => {
         ...state,
         loading: false,
         listData: action.data,
-        listTitle: action.data.name,
-        listDescription: action.data.description,
-        listId: action.data.id,
         error: false
       };
     case GET_LIST_FAILED:
