@@ -152,6 +152,7 @@ export const clearList = listId => (dispatch, getState, { storageClient }) => {
   return clList(listId, accessToken).then(
     success => {
       dispatch(clearListSuccess(success));
+      dispatch(fetchLists());
     },
     error => {
       dispatch(clearListFailed());

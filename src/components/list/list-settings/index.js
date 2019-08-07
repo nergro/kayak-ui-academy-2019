@@ -69,8 +69,7 @@ class settings extends Component {
   }
 }
 settings.propTypes = {
-  empty: Proptypes.bool,
-  listId: Proptypes.string.isRequired
+  empty: Proptypes.bool
 };
 
 settings.defaultProps = {
