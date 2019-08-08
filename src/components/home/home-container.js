@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Home from './home';
+import { addMovie } from '../../actions/lists';
 
 const mapStateToProps = state => ({
   selectedMovie: state.search.selectedMovie,
@@ -7,7 +8,7 @@ const mapStateToProps = state => ({
   fetchedLists: state.lists.fetchedLists
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { addMovie };
 
 export default connect(
   mapStateToProps,

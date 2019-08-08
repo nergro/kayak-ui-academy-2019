@@ -1,18 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { toggleFavorite as toggleFavoriteAction } from '../../actions/favorites';
 
 const imagePath = 'https://image.tmdb.org/t/p/w500';
 
-const MovieCard = ({ selectedMovie, toggleFavorite, isFavorite, isAuth, lists }) => {
+const MovieCard = ({
+  selectedMovie,
+  toggleFavorite,
+  isFavorite,
+  isAuth,
+  lists,
+  addMovie,
+  availableLists,
+  history
+}) => {
   const addToList = e => {
-    console.log(e.target.value);
+    const listId = e.target.value;
+    addMovie(e.target.value, selectedMovie.id).then(() => {
+      history.push('/list/' + listId + '/1');
+    });
   };
-  console.log('FROM CARD');
-  console.log(lists);
   return (
     <div>
       <div className="mb-30">
@@ -39,17 +49,14 @@ const MovieCard = ({ selectedMovie, toggleFavorite, isFavorite, isAuth, lists })
           {isAuth ? (
             <React.Fragment>
               <select className="button" name="list" onChange={addToList}>
-                <option value="" disabled>
+                <option value="" disabled selected>
                   Add to list
                 </option>
-                <option value="listid" id="123">
-                  List 1
-                </option>
-                <option value="listid" id="12345">
-                  List 2
-                </option>
-                <option value="listid">List 3</option>
-                <option value="listid">List 4</option>
+                {availableLists.map(list => (
+                  <option key={list.data.id} value={list.data.id}>
+                    {list.data.name}
+                  </option>
+                ))}
               </select>
               {lists.length > 0 ? (
                 <div className="card-list">
@@ -85,9 +92,18 @@ MovieCard.propTypes = {
   selectedMovie: PropTypes.shape({ id: PropTypes.number.isRequired }).isRequired,
   toggleFavorite: PropTypes.func.isRequired,
   isFavorite: PropTypes.bool.isRequired,
-  isAuth: PropTypes.bool.isRequired
+  isAuth: PropTypes.bool.isRequired,
+  lists: PropTypes.array,
+  addMovie: PropTypes.func,
+  availableLists: PropTypes.array,
+  history: PropTypes.object.isRequired
 };
 
+MovieCard.defaultProps = {
+  lists: [],
+  addMovie: null,
+  availableLists: []
+};
 const mapStateToProps = (state, ownProps) => {
   const isFavorite = !!state.favorites.movies.find(movie => movie.id === ownProps.selectedMovie.id);
 
@@ -103,4 +119,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MovieCard);
+)(withRouter(MovieCard));

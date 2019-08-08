@@ -4,7 +4,8 @@ import {
   updateList as updList,
   clearList as clList,
   deleteList as delList,
-  addCommentToMovie
+  addCommentToMovie,
+  addMovieToList
 } from '../services/movieDB';
 
 export const LOADING = 'LOADING';
@@ -36,7 +37,7 @@ export const fetchLists = () => (dispatch, getState, { storageClient }) => {
     data => {
       dispatch(getListsSuccess(data));
     },
-    error => {
+    () => {
       dispatch(failed());
     }
   );
@@ -46,11 +47,11 @@ export const makeList = (title, description) => (dispatch, getState, { storageCl
   const accessToken = storageClient.get('ACCESS_TOKEN');
   dispatch(loading());
   return createList(title, description, accessToken).then(
-    res => {
+    () => {
       dispatch(editListSuccess());
       dispatch(fetchLists());
     },
-    error => {
+    () => {
       dispatch(failed());
     }
   );
@@ -64,11 +65,11 @@ export const updateList = (title, description, listId) => (
   const accessToken = storageClient.get('ACCESS_TOKEN');
   dispatch(loading());
   return updList(title, description, accessToken, listId).then(
-    res => {
+    () => {
       dispatch(editListSuccess());
       dispatch(fetchLists());
     },
-    error => {
+    () => {
       dispatch(failed());
     }
   );
@@ -78,11 +79,11 @@ export const clearList = listId => (dispatch, getState, { storageClient }) => {
   const accessToken = storageClient.get('ACCESS_TOKEN');
   dispatch(loading());
   return clList(listId, accessToken).then(
-    res => {
+    () => {
       dispatch(editListSuccess());
       dispatch(fetchLists());
     },
-    error => {
+    () => {
       dispatch(failed());
     }
   );
@@ -92,11 +93,11 @@ export const deleteList = listId => (dispatch, getState, { storageClient }) => {
   const accessToken = storageClient.get('ACCESS_TOKEN');
   dispatch(loading());
   return delList(listId, accessToken).then(
-    res => {
+    () => {
       dispatch(editListSuccess());
       dispatch(fetchLists());
     },
-    error => {
+    () => {
       dispatch(failed());
     }
   );
@@ -107,12 +108,26 @@ export const addComment = (listId, commentData) => (dispatch, getState, { storag
   dispatch(loading());
 
   return addCommentToMovie(listId, accessToken, { items: [commentData] }).then(
-    res => {
+    () => {
       dispatch(editListSuccess());
       dispatch(fetchLists());
     },
-    error => {
+    () => {
       dispatch(failed());
+    }
+  );
+};
+
+export const addMovie = (listId, movieId) => (dispatch, getState, { storageClient }) => {
+  const accessToken = storageClient.get('ACCESS_TOKEN');
+  dispatch(loading());
+  return addMovieToList(listId, movieId, accessToken).then(
+    () => {
+      dispatch(editListSuccess());
+      dispatch(fetchLists());
+    },
+    () => {
+      dispatch(failed);
     }
   );
 };

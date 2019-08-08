@@ -19,18 +19,33 @@ class Home extends Component {
     });
     return movieListsArr;
   };
+  getFreeLists = (fetchedLists, movieLists) => {
+    return fetchedLists.filter(list => {
+      return !movieLists.includes(list);
+    });
+  };
 
   render() {
-    const { selectedMovie, isAuth, fetchedLists } = this.props;
+    const { selectedMovie, isAuth, fetchedLists, addMovie } = this.props;
     let movieListsArr = [];
-    if (selectedMovie) {
+    let availableListsArr = [];
+    if (selectedMovie && isAuth) {
       movieListsArr = this.getMovieLists(selectedMovie.id, fetchedLists);
+      availableListsArr = fetchedLists.filter(list => {
+        return !movieListsArr.includes(list);
+      });
     }
     return (
       <div className="home">
         {selectedMovie ? (
           <MovieCardWrapper>
-            <MovieCard selectedMovie={selectedMovie} isAuth={isAuth} lists={movieListsArr} />
+            <MovieCard
+              selectedMovie={selectedMovie}
+              isAuth={isAuth}
+              lists={movieListsArr}
+              availableLists={availableListsArr}
+              addMovie={addMovie}
+            />
           </MovieCardWrapper>
         ) : null}
         <FavouriteMovies selectedMovie={selectedMovie ? true : false} />
@@ -40,13 +55,16 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  selectedMovie: PropTypes.object.isRequired,
+  selectedMovie: PropTypes.object,
   isAuth: PropTypes.bool.isRequired,
-  fetchedLists: PropTypes.array
+  fetchedLists: PropTypes.array,
+  addMovie: PropTypes.func
 };
 
 Home.defaultProps = {
-  fetchedLists: null
+  fetchedLists: null,
+  addMovie: null,
+  selectedMovie: null
 };
 
 export default Home;

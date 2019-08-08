@@ -9,11 +9,13 @@ const movie = ({ image, title, description, rating, comment, toggleModal, mediaT
       </div>
       <div className="movie-box-bottom">
         <h2>{title}</h2>
-        <h3>
-          <i className="fas fa-star" />
-          {rating}
-          <i className="fas fa-star" />
-        </h3>
+        {rating ? (
+          <h3>
+            <i className="fas fa-star" />
+            {rating}
+            <i className="fas fa-star" />
+          </h3>
+        ) : null}
         <p>{description}</p>
         <div className="movie-box-bottom__comment">
           {comment ? (

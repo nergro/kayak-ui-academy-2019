@@ -163,3 +163,19 @@ export const addCommentToMovie = (listId, accessToken, data) => {
       return res.data.success;
     });
 };
+
+export const addMovieToList = (listId, movieId, accessToken) => {
+  const data = {
+    items: [
+      {
+        media_type: 'movie',
+        media_id: movieId
+      }
+    ]
+  };
+  return axios
+    .post(`https://api.themoviedb.org/4/list/${listId}/items`, data, config(accessToken))
+    .then(res => {
+      return res.data.success;
+    });
+};
