@@ -48,8 +48,8 @@ const MovieCard = ({
           </button>
           {isAuth ? (
             <React.Fragment>
-              <select className="button" name="list" onChange={addToList}>
-                <option value="" disabled selected>
+              <select className="button" name="list" value="default" onChange={addToList}>
+                <option value="default" disabled>
                   Add to list
                 </option>
                 {availableLists.map(list => (

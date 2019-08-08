@@ -1,11 +1,11 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import Proptypes from 'prop-types';
-import Movie from '../movie-box';
-import { imagePath } from '../../../services/movieDB';
+import MovieList from '../../list-movies';
+import getSortedList from '../get-sorted-list';
 
 const MOVIES_PER_PAGE = 5;
-const paginator = ({ currentUrl, movies, match, comments, toggleModal, removeMovie }) => {
+const paginator = ({ currentUrl, movies, match, comments, toggleModal, removeMovie, sortBy }) => {
   const pages = movies ? Math.ceil(movies.length / MOVIES_PER_PAGE) : 0;
   const currentPage = match.params.page;
   const previousPage = +currentPage - 1;
@@ -14,7 +14,8 @@ const paginator = ({ currentUrl, movies, match, comments, toggleModal, removeMov
   if (movies) {
     const start = currentPage * MOVIES_PER_PAGE - MOVIES_PER_PAGE;
     const end = start + MOVIES_PER_PAGE;
-    moviesArr = movies.slice(start, end);
+    const sortedMovies = getSortedList(movies, sortBy);
+    moviesArr = sortedMovies.slice(start, end);
   }
   return (
     <div className="paginator">
@@ -45,31 +46,13 @@ const paginator = ({ currentUrl, movies, match, comments, toggleModal, removeMov
           ) : null}
         </ul>
       ) : null}
-
-      <div className="list-movies__movies">
-        {moviesArr
-          ? moviesArr.map(movie => {
-              const descArr = movie.overview.split('.');
-              const desc = descArr.length > 2 ? descArr.slice(0, 2).join() : descArr.join();
-              return (
-                <Movie
-                  key={movie.id}
-                  image={movie.backdrop_path ? imagePath + movie.backdrop_path : null}
-                  date={movie.release_date}
-                  title={movie.name ? movie.name : movie.title}
-                  description={desc}
-                  rating={movie.vote_average}
-                  comment={comments[movie.id]}
-                  mediaType={movie.media_type}
-                  id={movie.id}
-                  toggleModal={toggleModal}
-                  removeMovie={removeMovie}
-                  listId={match.params.id}
-                />
-              );
-            })
-          : null}
-      </div>
+      <MovieList
+        movies={moviesArr}
+        comments={comments}
+        toggleModal={toggleModal}
+        removeMovie={removeMovie}
+        sortBy={sortBy}
+      />
     </div>
   );
 };
@@ -80,7 +63,8 @@ paginator.propTypes = {
   match: Proptypes.object.isRequired,
   comments: Proptypes.object.isRequired,
   toggleModal: Proptypes.func.isRequired,
-  removeMovie: Proptypes.func.isRequired
+  removeMovie: Proptypes.func.isRequired,
+  sortBy: Proptypes.string.isRequired
 };
 
 export default withRouter(paginator);

@@ -87,6 +87,11 @@
         flex-wrap: wrap;
       }
     }
+    .list-settings-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .list-settings {
       align-self: center;
       padding: 1rem 2rem;
@@ -110,7 +115,7 @@
     /* Settings dropdown */
     .settings-wrapper {
       position: relative;
-      margin: 2rem 0;
+      margin: 2rem;
     }
     .settings {
       position: absolute;
@@ -242,6 +247,9 @@
 
     @include breakpoint-down(lg) {
       width: 350px;
+    }
+    @include breakpoint-down(md) {
+      width: 300px;
     }
   }
   .movie-box-form {

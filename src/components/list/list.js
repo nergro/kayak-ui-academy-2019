@@ -16,22 +16,27 @@ let LIST_ID = '';
 class List extends Component {
   state = {
     showModal: false,
-    mediaType: '',
     id: 0,
-    comment: ''
+    comment: '',
+    sortBy: ''
   };
 
-  toggleModal = (mediaType, id) => {
+  onSortSelect = e => {
+    this.setState({
+      sortBy: e.target.value
+    });
+  };
+
+  toggleModal = id => {
     this.setState(() => ({
       showModal: !this.state.showModal,
-      mediaType,
       id
     }));
   };
   submitComment = comment => {
     const { addComment, history } = this.props;
     const data = {
-      media_type: this.state.mediaType,
+      media_type: 'movie',
       media_id: this.state.id,
       comment
     };
@@ -45,9 +50,11 @@ class List extends Component {
 
   onMovieRemoval = id => {
     const { removeMovie, history } = this.props;
-    removeMovie(LIST_ID, id).then(res => {
-      history.push('/list/' + LIST_ID + '/1');
-    });
+    if (window.confirm('You sure want to delete this?')) {
+      removeMovie(LIST_ID, id).then(res => {
+        history.push('/list/' + LIST_ID + '/1');
+      });
+    }
   };
   makeCommentsObject = comments => {
     const obj = { ...comments };
@@ -78,7 +85,7 @@ class List extends Component {
     return runtimeHours + 'H ' + runtimeMinutes + 'M';
   };
   render() {
-    const { list, loading, match, removeMovie } = this.props;
+    const { list, loading, match } = this.props;
     const comments = list ? this.makeCommentsObject(list.comments) : null;
     LIST_ID = match.params.id;
     CURRENT_PAGE = match.params.page;
@@ -86,7 +93,6 @@ class List extends Component {
 
     const runtime = list ? this.convertRuntime(list.runtime) : '';
     const revenue = list ? this.convertRevenue(list.revenue) : '';
-
     return (
       <React.Fragment>
         {loading ? (
@@ -129,7 +135,27 @@ class List extends Component {
                 <p>TOTAL REVENUE</p>
               </div>
             </div>
-            <Settings />
+            <div className="list-settings-wrapper">
+              <Settings />
+              <div className="list-sorting">
+                <select
+                  className="button"
+                  name="list"
+                  value="default"
+                  onChange={this.onSortSelect}
+                  style={{ height: '4rem', borderRadius: '5px' }}
+                >
+                  <option value="default" disabled>
+                    Sort By
+                  </option>
+                  <option value="DATE_ASC">Release Date Asc</option>
+                  <option value="DATE_DESC">Release Date Desc</option>
+                  <option value="RATING_ASC">Rating Asc</option>
+                  <option value="RATING_DESC">Rating Desc</option>
+                  <option value="TITLE_DESC">Title Desc</option>
+                </select>
+              </div>
+            </div>
             <div className="list-movies">
               <Paginator
                 currentUrl={CURRENT_URL}
@@ -137,6 +163,7 @@ class List extends Component {
                 comments={comments}
                 toggleModal={this.toggleModal}
                 removeMovie={this.onMovieRemoval}
+                sortBy={this.state.sortBy}
               />
             </div>
           </div>
@@ -153,7 +180,8 @@ List.propTypes = {
   list: Proptypes.object,
   loading: Proptypes.bool.isRequired,
   addComment: Proptypes.func.isRequired,
-  removeMovie: Proptypes.func.isRequired
+  removeMovie: Proptypes.func.isRequired,
+  history: Proptypes.object.isRequired
 };
 
 List.defaultProps = {
