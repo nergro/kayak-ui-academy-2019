@@ -9,7 +9,7 @@ const Navbar = ({ getReqToken, logoutUser, accessToken, history }) => {
   };
   const onLogout = () => {
     logoutUser();
-    history.push('/');
+    window.location.reload();
   };
 
   return (

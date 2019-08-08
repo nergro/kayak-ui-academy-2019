@@ -6,7 +6,6 @@ import {
   deleteList as delList,
   addCommentToMovie
 } from '../services/movieDB';
-import list from '../components/list/list';
 
 export const LOADING = 'LOADING';
 export const FAILED = 'FAILED';

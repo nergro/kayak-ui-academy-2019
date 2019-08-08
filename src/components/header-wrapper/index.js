@@ -8,7 +8,7 @@ const HeaderWrapper = ({ children }) => (
       <div className="content-wrapper">
         <div className="search">
           <div className="search pt-60 pb-15">
-            <h1 className="text-centered pb-15">App title placeholder</h1>
+            <h1 className="text-centered pb-15">Kayak UI Academy 2019</h1>
             <div className="autocomplete field max-width-600 block-centered">{children}</div>
           </div>
         </div>

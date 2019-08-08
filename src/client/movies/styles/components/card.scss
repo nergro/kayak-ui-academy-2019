@@ -42,4 +42,20 @@ $width__child-unit-card: 250px;
 
   .asset-description {
   }
+
+  .card-list {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .card-list__body {
+      border: 1px solid #ccc;
+      width: 100%;
+      text-align: center;
+      .card-list__body--item {
+        margin: 0.5rem 0;
+        font-weight: $font-weight__headings;
+      }
+    }
+  }
 }

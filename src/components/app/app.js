@@ -29,7 +29,7 @@ class App extends Component {
   }
 
   render() {
-    const { loading, accessToken } = this.props;
+    const { loading, isAuth } = this.props;
     return (
       <div className="page-wrapper">
         {loading ? (
@@ -42,7 +42,7 @@ class App extends Component {
             </HeaderWrapper>
 
             <div className="page-content">
-              {accessToken ? (
+              {isAuth ? (
                 <Switch>
                   <Route path="/" exact component={Home} />
                   <Route path="/lists" component={Lists} />
@@ -71,10 +71,7 @@ class App extends Component {
 App.propTypes = {
   loading: PropTypes.bool.isRequired,
   checkUser: PropTypes.func.isRequired,
-  accessToken: PropTypes.string
+  isAuth: PropTypes.bool.isRequired
 };
 
-App.defaultProps = {
-  accessToken: null
-};
 export default withRouter(hot(App));

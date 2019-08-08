@@ -6,7 +6,8 @@ import { fetchLists } from '../../actions/lists';
 
 const mapStateToProps = state => ({
   loading: state.auth.loading,
-  accessToken: state.auth.access_token
+  accessToken: state.auth.access_token,
+  isAuth: state.auth.isAuth
 });
 
 const mapDispatchToProps = {

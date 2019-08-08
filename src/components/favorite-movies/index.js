@@ -16,14 +16,20 @@ const FavouriteMovies = ({ movies, setMovies, selectedMovie }) => {
     <aside className="aside">
       <div className="container">
         <div className="content-wrapper">
-          <h3>My Favourites</h3>
-          <div className="aside-favourites" style={style}>
-            {movies.map(movie => (
-              <div className="aside-favourite" key={movie.id}>
-                {movie.title}
+          {movies.length === 0 ? (
+            <h3>No Favourite Movies</h3>
+          ) : (
+            <React.Fragment>
+              <h3>My Favourites</h3>
+              <div className="aside-favourites" style={style}>
+                {movies.map(movie => (
+                  <div className="aside-favourite" key={movie.id}>
+                    {movie.title}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </React.Fragment>
+          )}
         </div>
       </div>
     </aside>

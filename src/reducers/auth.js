@@ -13,7 +13,8 @@ const initialState = {
   access_token: '',
   accound_id: '',
   loading: false,
-  error: false
+  error: false,
+  isAuth: false
 };
 
 const auth = (state = initialState, action) => {
@@ -31,10 +32,11 @@ const auth = (state = initialState, action) => {
         ...state,
         loading: false,
         access_token: action.access_token,
-        account_id: action.account_id
+        account_id: action.account_id,
+        isAuth: true
       };
     case ACCESS_TOKEN_FAILED:
-      return { ...state, loading: false, error: true };
+      return { ...state, loading: false, error: true, isAuth: false };
     case LOGOUT:
       return { ...state, request_token: '', access_token: '', accound_id: '' };
     default:
