@@ -10,16 +10,12 @@ const index = props => {
   console.log(selectedMovie);
   return (
     <div className="home">
-      <MovieCardWrapper>
-        {selectedMovie ? (
+      {selectedMovie ? (
+        <MovieCardWrapper>
           <MovieCard selectedMovie={selectedMovie} />
-        ) : (
-          <div className="mb-30">
-            <h3>Selected Movie</h3>
-          </div>
-        )}
-      </MovieCardWrapper>
-      <FavouriteMovies />
+        </MovieCardWrapper>
+      ) : null}
+      <FavouriteMovies selectedMovie={selectedMovie ? true : false} />
     </div>
   );
 };

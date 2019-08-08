@@ -43,23 +43,34 @@
   .page-content {
     display: flex;
     flex-direction: column;
-    flex: 1 0 auto;
+    flex: 1 1 auto;
 
     @include breakpoint-up(lg) {
-      flex-direction: row;
+      // flex-direction: row;
     }
 
     .aside {
+      width: 30%;
       order: 1;
+      text-align: center;
 
-      @include breakpoint-up(lg) {
-        flex: 0 0 300px;
+      .aside-favourite {
+        margin: 1rem 0;
+        font-weight: $font-weight__headings;
+      }
+      @include breakpoint-down(md) {
+        flex-direction: column;
+        width: 100%;
       }
     }
 
     .main {
-      flex-grow: 1;
+      width: 70%;
       order: 2;
+      @include breakpoint-down(md) {
+        order: 0;
+        width: 100%;
+      }
     }
   }
 

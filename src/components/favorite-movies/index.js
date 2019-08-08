@@ -4,19 +4,26 @@ import PropTypes from 'prop-types';
 
 import { setMovies as setMoviesAction } from '../../actions/favorites';
 
-const FavouriteMovies = ({ movies, setMovies }) => {
+const FavouriteMovies = ({ movies, setMovies, selectedMovie }) => {
   useEffect(() => {
     setMovies();
   }, []);
 
+  const style = {
+    border: selectedMovie ? '1px solid #ccc' : 'none'
+  };
   return (
     <aside className="aside">
       <div className="container">
         <div className="content-wrapper">
           <h3>My Favourites</h3>
-          {movies.map(movie => (
-            <div key={movie.id}>{movie.title}</div>
-          ))}
+          <div className="aside-favourites" style={style}>
+            {movies.map(movie => (
+              <div className="aside-favourite" key={movie.id}>
+                {movie.title}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </aside>

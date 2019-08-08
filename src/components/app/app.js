@@ -31,7 +31,7 @@ class App extends Component {
   render() {
     const { loading, accessToken } = this.props;
     return (
-      <div className={styles.container}>
+      <div className="page-wrapper">
         {loading ? (
           <Spinner />
         ) : (
