@@ -42,6 +42,13 @@ class List extends Component {
       });
     });
   };
+
+  onMovieRemoval = id => {
+    const { removeMovie, history } = this.props;
+    removeMovie(LIST_ID, id).then(res => {
+      history.push('/list/' + LIST_ID + '/1');
+    });
+  };
   makeCommentsObject = comments => {
     const obj = { ...comments };
     const newObj = {};
@@ -71,7 +78,7 @@ class List extends Component {
     return runtimeHours + 'H ' + runtimeMinutes + 'M';
   };
   render() {
-    const { list, loading, match } = this.props;
+    const { list, loading, match, removeMovie } = this.props;
     const comments = list ? this.makeCommentsObject(list.comments) : null;
     LIST_ID = match.params.id;
     CURRENT_PAGE = match.params.page;
@@ -129,6 +136,7 @@ class List extends Component {
                 movies={list.movies}
                 comments={comments}
                 toggleModal={this.toggleModal}
+                removeMovie={this.onMovieRemoval}
               />
             </div>
           </div>
@@ -144,7 +152,8 @@ List.propTypes = {
   match: Proptypes.object.isRequired,
   list: Proptypes.object,
   loading: Proptypes.bool.isRequired,
-  addComment: Proptypes.func.isRequired
+  addComment: Proptypes.func.isRequired,
+  removeMovie: Proptypes.func.isRequired
 };
 
 List.defaultProps = {

@@ -103,25 +103,19 @@ export const updateList = (title, description, accessToken, listId) => {
   };
   return axios
     .put(`https://api.themoviedb.org/4/list/${listId}`, data, config(accessToken))
-    .then(res => {
-      return res.data.success;
-    });
+    .then(res => res);
 };
 
 export const clearList = (listId, accessToken) => {
   return axios
     .get(`https://api.themoviedb.org/4/list/${listId}/clear`, config(accessToken))
-    .then(res => {
-      return res.data.success;
-    });
+    .then(res => res);
 };
 
 export const deleteList = (listId, accessToken) => {
   return axios
     .delete(`https://api.themoviedb.org/4/list/${listId}`, config(accessToken))
-    .then(res => {
-      return res.data.success;
-    });
+    .then(res => res);
 };
 
 /* Movies */
@@ -159,13 +153,11 @@ export const getMoviesList = ids => {
 export const addCommentToMovie = (listId, accessToken, data) => {
   return axios
     .put(`https://api.themoviedb.org/4/list/${listId}/items`, data, config(accessToken))
-    .then(res => {
-      return res.data.success;
-    });
+    .then(res => res);
 };
 
-export const addMovieToList = (listId, movieId, accessToken) => {
-  const data = {
+const getMovieTemplate = movieId => {
+  return {
     items: [
       {
         media_type: 'movie',
@@ -173,9 +165,23 @@ export const addMovieToList = (listId, movieId, accessToken) => {
       }
     ]
   };
+};
+
+export const addMovieToList = (listId, movieId, accessToken) => {
   return axios
-    .post(`https://api.themoviedb.org/4/list/${listId}/items`, data, config(accessToken))
-    .then(res => {
-      return res.data.success;
-    });
+    .post(
+      `https://api.themoviedb.org/4/list/${listId}/items`,
+      getMovieTemplate(movieId),
+      config(accessToken)
+    )
+    .then(res => res);
+};
+
+export const removeMovieFromList = (listId, movieId, accessToken) => {
+  return axios
+    .delete(`https://api.themoviedb.org/4/list/${listId}/items`, {
+      data: getMovieTemplate(movieId),
+      ...config(accessToken)
+    })
+    .then(res => res);
 };

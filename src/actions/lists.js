@@ -5,7 +5,8 @@ import {
   clearList as clList,
   deleteList as delList,
   addCommentToMovie,
-  addMovieToList
+  addMovieToList,
+  removeMovieFromList
 } from '../services/movieDB';
 
 export const LOADING = 'LOADING';
@@ -127,7 +128,21 @@ export const addMovie = (listId, movieId) => (dispatch, getState, { storageClien
       dispatch(fetchLists());
     },
     () => {
-      dispatch(failed);
+      dispatch(failed());
+    }
+  );
+};
+
+export const removeMovie = (listId, movieId) => (dispatch, getState, { storageClient }) => {
+  const accessToken = storageClient.get('ACCESS_TOKEN');
+  dispatch(loading());
+  return removeMovieFromList(listId, movieId, accessToken).then(
+    () => {
+      dispatch(editListSuccess());
+      dispatch(fetchLists());
+    },
+    () => {
+      dispatch(failed());
     }
   );
 };
