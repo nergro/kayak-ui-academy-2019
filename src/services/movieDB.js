@@ -25,7 +25,11 @@ export const getRequestToken = () =>
 
 export const getAccessToken = requestToken =>
   axios
-    .post('https://api.themoviedb.org/4/auth/access_token', { requestToken }, config(accessKey))
+    .post(
+      'https://api.themoviedb.org/4/auth/access_token',
+      { request_token: requestToken },
+      config(accessKey)
+    )
     .then(res => ({
       access_token: res.data.access_token,
       account_id: res.data.account_id

@@ -45,7 +45,7 @@ const movieBox = ({ comment, toggleModal, removeMovie, movie }) => {
               >
                 ADD COMMENT
               </button>
-              <span className="movie-box__remove">
+              <span className="movie-box-bottom__comment--remove">
                 <i className="fas fa-times fa-2x" onClick={() => removeMovie(movie.id)} />
               </span>
             </React.Fragment>

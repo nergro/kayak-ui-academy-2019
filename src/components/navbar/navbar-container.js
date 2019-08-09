@@ -4,7 +4,7 @@ import { getReqToken, logoutUser } from '../../actions/auth';
 import Navbar from './navbar';
 
 const mapStateToProps = state => ({
-  accessToken: state.auth.access_token
+  isAuth: state.auth.isAuth
 });
 
 const mapDispatchToProps = {

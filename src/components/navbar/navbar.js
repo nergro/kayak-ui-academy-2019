@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '../UI/button';
 
-const Navbar = ({ getReqToken, logoutUser, accessToken }) => {
+const Navbar = ({ getReqToken, logoutUser, isAuth }) => {
   const onLogin = () => {
     getReqToken();
   };
@@ -18,14 +18,14 @@ const Navbar = ({ getReqToken, logoutUser, accessToken }) => {
         <div className="navbar__item">
           <Link to="/">Home</Link>
         </div>
-        {accessToken ? (
+        {isAuth ? (
           <div className="navbar__item">
             <Link to="/lists">Lists</Link>
           </div>
         ) : null}
       </div>
       <div className="navbar__right">
-        {accessToken ? (
+        {isAuth ? (
           <div className="navbar__item navbar__item--login">
             <Button onClick={onLogout}>Logout</Button>
           </div>
@@ -42,7 +42,7 @@ const Navbar = ({ getReqToken, logoutUser, accessToken }) => {
 Navbar.propTypes = {
   getReqToken: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  accessToken: PropTypes.string.isRequired
+  isAuth: PropTypes.bool.isRequired
 };
 
 export default withRouter(Navbar);
