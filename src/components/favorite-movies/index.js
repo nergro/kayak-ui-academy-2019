@@ -37,7 +37,12 @@ const FavouriteMovies = ({ movies, setMovies, selectedMovie }) => {
 };
 
 FavouriteMovies.propTypes = {
-  movies: PropTypes.array.isRequired
+  movies: PropTypes.array.isRequired,
+  setMovies: PropTypes.func.isRequired,
+  selectedMovie: PropTypes.bool
+};
+FavouriteMovies.defaultProps = {
+  selectedMovie: null
 };
 
 const mapStateToProps = state => ({

@@ -1,31 +1,33 @@
 /* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Proptypes from 'prop-types';
-import Spinner from '../UI/Spinner/Spinner';
+import Spinner from '../UI/Spinner';
 import Error from '../UI/error';
 
-let LIST_ID = '';
 class ClearList extends Component {
   componentDidMount() {
-    const { clearList, deleteList, match, history } = this.props;
-    LIST_ID = match.params.id;
+    const {
+      clearList,
+      deleteList,
+      match,
+      history: { push }
+    } = this.props;
+    const listId = match.params.id;
     const url = match.url.split('/');
     if (url.includes('clear')) {
-      const redirectUrl = '/list/' + LIST_ID + '/1';
-      clearList(LIST_ID).then(res => {
-        history.push(redirectUrl);
+      clearList(listId).then(() => {
+        push(`/list/${listId}/1`);
       });
     }
     if (url.includes('delete')) {
-      deleteList(LIST_ID).then(res => {
-        history.push('/lists');
+      deleteList(listId).then(() => {
+        push('/lists');
       });
     }
   }
   render() {
     const { loading } = this.props;
-    const redirectUrl = '/list/' + LIST_ID + '/1';
     return (
       <React.Fragment>
         {loading ? <Spinner /> : <Error>Sorry! Something went wrong:(</Error>}
@@ -38,7 +40,10 @@ ClearList.propTypes = {
   clearList: Proptypes.func,
   deleteList: Proptypes.func,
   match: Proptypes.object.isRequired,
-  loading: Proptypes.bool.isRequired
+  loading: Proptypes.bool.isRequired,
+  history: Proptypes.shape({
+    push: Proptypes.func.isRequired
+  }).isRequired
 };
 
 ClearList.defaultProps = {

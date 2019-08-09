@@ -15,12 +15,12 @@ const MovieCard = ({
   lists,
   addMovie,
   availableLists,
-  history
+  history: { push }
 }) => {
   const addToList = e => {
     const listId = e.target.value;
     addMovie(e.target.value, selectedMovie.id).then(() => {
-      history.push('/list/' + listId + '/1');
+      push(`/list/${listId}/1`);
     });
   };
   return (
@@ -62,14 +62,11 @@ const MovieCard = ({
                 <div className="card-list">
                   <h3>Belongs to these lists:</h3>
                   <div className="card-list__body">
-                    {lists.map(list => {
-                      const listUrl = '/list/' + list.data.id + '/1';
-                      return (
-                        <div className="card-list__body--item" key={list.data.id}>
-                          <Link to={listUrl}>{list.data.name}</Link>
-                        </div>
-                      );
-                    })}
+                    {lists.map(list => (
+                      <div className="card-list__body--item" key={list.data.id}>
+                        <Link to={`/list/${list.data.id}/1`}>{list.data.name}</Link>
+                      </div>
+                    ))}
                   </div>
                 </div>
               ) : null}
@@ -96,7 +93,9 @@ MovieCard.propTypes = {
   lists: PropTypes.array,
   addMovie: PropTypes.func,
   availableLists: PropTypes.array,
-  history: PropTypes.object.isRequired
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 MovieCard.defaultProps = {

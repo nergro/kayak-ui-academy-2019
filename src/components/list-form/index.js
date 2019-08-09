@@ -28,19 +28,20 @@ class listForm extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { makeList, updateList, match, history } = this.props;
+    const {
+      makeList,
+      updateList,
+      match,
+      history: { push }
+    } = this.props;
     const listId = match.params.id;
     const title = this.state.title;
     const description = this.state.description;
     if (title.length >= 3 && description.length >= 3) {
       if (!this.state.createList && updateList) {
-        updateList(title, description, listId).then(res => {
-          history.push('/list/' + listId + '/1');
-        });
+        updateList(title, description, listId).then(() => push(`/list/${listId}/1`));
       } else {
-        makeList(title, description).then(res => {
-          history.push('/lists');
-        });
+        makeList(title, description).then(() => push('/lists'));
       }
     } else {
       this.setState({
@@ -92,7 +93,11 @@ listForm.propTypes = {
   title: Proptypes.string,
   description: Proptypes.string,
   makeList: Proptypes.func,
-  updateList: Proptypes.func
+  updateList: Proptypes.func,
+  match: Proptypes.object.isRequired,
+  history: Proptypes.shape({
+    push: Proptypes.func.isRequired
+  }).isRequired
 };
 
 listForm.defaultProps = {

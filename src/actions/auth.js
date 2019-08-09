@@ -9,8 +9,6 @@ export const ACCESS_TOKEN_SUCCESS = 'ACCESS_TOKEN_SUCCESS';
 export const ACCESS_TOKEN_FAILED = 'ACCESS_TOKEN_FAILED';
 export const ACCESS_TOKEN_LOADING = 'ACCESS_TOKEN_LOADING';
 
-export const LOGOUT = '';
-
 const REQUEST_TOKEN = 'REQUEST_TOKEN';
 const ACCESS_TOKEN = 'ACCESS_TOKEN';
 const ACCOUNT_ID = 'ACCOUNT_ID';
@@ -36,7 +34,7 @@ export const getReqToken = () => (dispatch, getState, { storageClient }) => {
       storageClient.set(REQUEST_TOKEN, token);
       window.location.href = 'https://www.themoviedb.org/auth/access?request_token=' + token;
     },
-    error => {
+    () => {
       dispatch(requestTokenFailed());
     }
   );
@@ -52,23 +50,19 @@ const accessTokenSuccess = (token, id) => ({
   accound_id: id
 });
 
-const accessTokenFailed = () => {
-  return {
-    type: ACCESS_TOKEN_FAILED
-  };
-};
+const accessTokenFailed = () => ({ type: ACCESS_TOKEN_FAILED });
 
 export const loginUser = () => (dispatch, getState, { storageClient }) => {
   dispatch(accessTokenLoading());
-  const request_token = storageClient.get(REQUEST_TOKEN);
-  return getAccessToken(request_token).then(
+  const requestToken = storageClient.get(REQUEST_TOKEN);
+  return getAccessToken(requestToken).then(
     data => {
       dispatch(accessTokenSuccess(data.access_token, data.account_id));
       storageClient.set(ACCESS_TOKEN, data.access_token);
       storageClient.set(ACCOUNT_ID, data.account_id);
       dispatch(fetchLists());
     },
-    error => {
+    () => {
       storageClient.remove(ACCESS_TOKEN);
       storageClient.remove(REQUEST_TOKEN);
       storageClient.remove(ACCOUNT_ID);
@@ -77,12 +71,7 @@ export const loginUser = () => (dispatch, getState, { storageClient }) => {
   );
 };
 
-const logout = () => ({
-  type: LOGOUT
-});
-
 export const logoutUser = () => (dispatch, getState, { storageClient }) => {
-  dispatch(logout());
   storageClient.remove(ACCESS_TOKEN);
   storageClient.remove(REQUEST_TOKEN);
   storageClient.remove(ACCOUNT_ID);

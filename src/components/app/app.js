@@ -9,7 +9,7 @@ import HeaderWrapper from '../header-wrapper';
 import Navbar from '../navbar';
 import Autocomplete from '../autocomplete';
 import Footer from '../footer';
-import Spinner from '../UI/Spinner/Spinner';
+import Spinner from '../UI/Spinner';
 
 import Home from '../home';
 import Lists from '../lists';
@@ -19,7 +19,6 @@ import UpdateList from '../update-list';
 import ClearDeleteList from '../clear-list';
 import Error from '../UI/error';
 
-import styles from './app.scss';
 import '../../client/movies/index.scss';
 
 class App extends Component {

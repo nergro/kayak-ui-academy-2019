@@ -1,12 +1,12 @@
 :global {
-  /* Displaying list of lists */
+  /* Displaying lists */
   .lists-container {
     width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 3rem auto;
-    .lists-container__title {
+    &__title {
       font-size: 3rem;
     }
   }
@@ -18,7 +18,7 @@
   }
 
   .list-box {
-    background: #081c24cc;
+    background: #041e36cc;
     color: $color__white;
     padding: 5rem;
     margin: 1rem;
@@ -28,26 +28,25 @@
     border-radius: 5px;
     cursor: pointer;
     transition: box-shadow 0.3s ease-in-out;
-    .list-box__property {
+    &__property {
       margin: 0.5rem 0;
     }
-    .list-box__title {
+    &__title {
       font-family: 'Source Sans Pro';
       font-size: 2.5rem;
       font-weight: $font-weight__headings;
     }
-    .list-box__items-count {
+    &__items-count {
       font-weight: $font-weight__headings;
     }
-    .list-box__updated {
+    &__updated {
       opacity: 0.5;
     }
-  }
-
-  .list-box:hover {
-    -webkit-box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 1);
-    -moz-box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 1);
-    box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 1);
+    &:hover {
+      -webkit-box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 1);
+      -moz-box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 1);
+      box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 1);
+    }
   }
 
   /* Displaying single list */
@@ -57,111 +56,115 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    .list-title {
+    &-title {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-bottom: 2rem;
     }
-    .list-info {
+    &-info {
       width: 100%;
       background: #f3f3f3;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      .list-info__item {
+      &__item {
         margin: 1rem 3rem;
         display: flex;
         flex-direction: column;
         align-items: center;
       }
     }
-    .list-movies {
+    &-movies {
       display: flex;
       flex-direction: column;
       align-items: center;
 
-      .list-movies__movies {
+      &__movies {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
       }
     }
-    .list-settings-wrapper {
+    &-settings-wrapper {
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-    .list-settings {
-      align-self: center;
-      padding: 1rem 2rem;
-      color: $color__white;
-      font-weight: bold;
-      border: none;
-      background: #252525;
-      border-radius: 5px;
-      cursor: pointer;
-      position: relative;
-    }
-    .list-settings:active,
-    .list-settings:hover {
-      outline: none;
-      background: #4b4747;
-    }
-    .list-settings:focus {
-      outline: none;
     }
 
     /* Settings dropdown */
     .settings-wrapper {
       position: relative;
       margin: 2rem;
-    }
-    .settings {
-      position: absolute;
-      padding-top: 1rem;
-      top: 75%;
-      left: -45%;
-      z-index: $zindex__dropdown;
-    }
-    .settings__arrow-up {
-      width: 0;
-      height: 0;
-      border-left: 10px solid transparent;
-      border-right: 10px solid transparent;
-      border-bottom: 10px solid #181c1e;
-      margin: auto;
-    }
 
-    .settings__list {
-      background: #181c1e;
-      padding: 1rem 0;
-      display: flex;
-      flex-direction: column;
-      align-content: center;
-      list-style: none;
-    }
-    .settings-list__item {
-      white-space: nowrap;
-      display: flex;
-      justify-content: center;
-
-      a {
-        text-decoration: none;
-        margin: 0.6rem;
-        padding: 0.5rem 4rem;
+      .list-settings__button {
+        align-self: center;
+        padding: 1rem 2rem;
         color: $color__white;
-        cursor: pointer;
-        background: none;
+        font-weight: bold;
         border: none;
-        width: 95%;
+        background: #252525;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
       }
-      a:focus {
+      .list-settings__button:active,
+      .list-settings__button:hover {
+        outline: none;
+        background: #4b4747;
+      }
+      .list-settings__button:focus {
         outline: none;
       }
-      a:hover {
-        background: white;
-        color: black;
+
+      .settings {
+        position: absolute;
+        padding-top: 1rem;
+        top: 75%;
+        right: -6%;
+        z-index: $zindex__dropdown;
+
+        &__arrow-up {
+          width: 0;
+          height: 0;
+          border-left: 10px solid transparent;
+          border-right: 10px solid transparent;
+          border-bottom: 10px solid #181c1e;
+          margin: auto;
+        }
+
+        &__list {
+          background: #181c1e;
+          padding: 1rem 0;
+          display: flex;
+          flex-direction: column;
+          align-content: center;
+          list-style: none;
+
+          &--item {
+            white-space: nowrap;
+            display: flex;
+            justify-content: center;
+
+            a {
+              text-decoration: none;
+              margin: 0.6rem;
+              padding: 0.5rem 4rem;
+              color: $color__white;
+              cursor: pointer;
+              background: none;
+              border: none;
+              width: 95%;
+            }
+            a:focus {
+              outline: none;
+            }
+            a:hover {
+              background: white;
+              color: black;
+            }
+          }
+        }
       }
     }
   }
@@ -173,7 +176,7 @@
     border-radius: 10px;
     transition: all 0.4s;
     width: 450px;
-    .movie-box-top {
+    &-top {
       img {
         width: 100%;
         border-radius: 10px 10px 0 0;
@@ -183,7 +186,7 @@
       transform: scale(1.02);
       box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
     }
-    .movie-box-bottom {
+    &-bottom {
       margin-top: 2rem;
       display: flex;
       flex-direction: column;
@@ -208,7 +211,7 @@
         text-align: center;
         margin: 1rem;
       }
-      .movie-box-bottom__comment {
+      &__comment {
         background: #ecf0f7;
         width: 100%;
         padding: 2rem 0;
@@ -224,7 +227,7 @@
           font-weight: $font-weight__headings;
           word-break: break-word;
         }
-        .movie-box-bottom__comment--edit {
+        &--edit {
           color: #ff690f;
           margin-right: 1rem;
           cursor: pointer;
@@ -232,7 +235,7 @@
             color: #ff6b0f86;
           }
         }
-        .movie-box__remove {
+        &--remove {
           position: absolute;
           top: 60%;
           right: 1%;
@@ -252,9 +255,6 @@
       width: 300px;
     }
   }
-  .movie-box-form {
-    width: 80% !important;
-  }
 
   /* Create list form */
   .create-list {
@@ -263,72 +263,73 @@
     flex-direction: column;
     align-items: center;
     margin: 2rem auto;
-  }
-  .create-list-form {
-    width: 20%;
-  }
-  .form-control {
-    margin-bottom: 0.6rem;
-  }
 
-  .form-control input,
-  .form-control textarea {
-    width: 100%;
-    font: inherit;
-    padding-left: 0.7rem;
-    border: 3px solid #ccc;
-  }
-  .form-control textarea {
-    padding-top: 0.7rem;
-    resize: none;
-  }
-  .form-control input {
-    height: 4rem;
-  }
-  .form-control input:focus,
-  .form-control textarea:focus {
-    outline: 3px solid #181c1e;
-  }
-
-  .form-button {
-    padding: 1rem 2rem;
-    color: $color__white;
-    font-weight: bold;
-    border: none;
-    background: #252525;
-    cursor: pointer;
-  }
-
-  .form-button:hover,
-  .form-button:active {
-    background: #c2ae96;
-  }
-  .form-error {
-    color: red;
-    text-align: center;
-    margin: 0.2rem auto;
-    font-weight: $font-weight__headings;
-  }
-  @include breakpoint-down(xl) {
-    .create-list-form {
-      width: 30%;
+    &-form {
+      width: 20%;
     }
-  }
-  @include breakpoint-down(lg) {
-    .create-list-form {
-      width: 40%;
+    .form-control {
+      margin-bottom: 0.6rem;
+      input,
+      textarea {
+        width: 100%;
+        font: inherit;
+        padding-left: 0.7rem;
+        border: 3px solid #ccc;
+      }
+      textarea {
+        padding-top: 0.7rem;
+        resize: none;
+      }
+      input {
+        height: 4rem;
+      }
+      input:focus,
+      textarea:focus {
+        outline: 3px solid #181c1e;
+      }
     }
-  }
 
-  @include breakpoint-down(md) {
-    .create-list-form {
-      width: 60%;
+    .form-button {
+      padding: 1rem 2rem;
+      color: $color__white;
+      font-weight: bold;
+      border: none;
+      background: #252525;
+      cursor: pointer;
+
+      &:hover,
+      &:active {
+        background: #c2ae96;
+      }
     }
-  }
 
-  @include breakpoint-down(sm) {
-    .create-list-form {
-      width: 80%;
+    .form-error {
+      color: red;
+      text-align: center;
+      margin: 0.2rem auto;
+      font-weight: $font-weight__headings;
+    }
+    @include breakpoint-down(xl) {
+      .create-list-form {
+        width: 30%;
+      }
+    }
+    @include breakpoint-down(lg) {
+      .create-list-form {
+        width: 40%;
+      }
+    }
+
+    @include breakpoint-down(md) {
+      .create-list-form {
+        width: 60%;
+      }
+    }
+
+    @include breakpoint-down(sm) {
+      .create-list-form {
+        width: 80%;
+      }
     }
   }
 }

@@ -19,11 +19,8 @@ class Home extends Component {
     });
     return movieListsArr;
   };
-  getFreeLists = (fetchedLists, movieLists) => {
-    return fetchedLists.filter(list => {
-      return !movieLists.includes(list);
-    });
-  };
+  getFreeLists = (fetchedLists, movieLists) =>
+    fetchedLists.filter(list => !movieLists.includes(list));
 
   render() {
     const { selectedMovie, isAuth, fetchedLists, addMovie } = this.props;
@@ -31,9 +28,7 @@ class Home extends Component {
     let availableListsArr = [];
     if (selectedMovie && isAuth) {
       movieListsArr = this.getMovieLists(selectedMovie.id, fetchedLists);
-      availableListsArr = fetchedLists.filter(list => {
-        return !movieListsArr.includes(list);
-      });
+      availableListsArr = fetchedLists.filter(list => !movieListsArr.includes(list));
     }
     return (
       <div className="home">

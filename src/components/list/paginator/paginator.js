@@ -1,12 +1,13 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import Proptypes from 'prop-types';
-import MovieList from '../../list-movies';
+import MovieList from './list-movies';
 import getSortedList from '../get-sorted-list';
 
 const MOVIES_PER_PAGE = 5;
-const paginator = ({ currentUrl, movies, match, comments, toggleModal, removeMovie, sortBy }) => {
+const paginator = ({ movies, match, comments, toggleModal, removeMovie, sortBy }) => {
   const pages = movies ? Math.ceil(movies.length / MOVIES_PER_PAGE) : 0;
+  const currentUrl = `/list/${match.params.id}`;
   const currentPage = match.params.page;
   const previousPage = +currentPage - 1;
   const nextPage = +currentPage + 1;
@@ -23,25 +24,25 @@ const paginator = ({ currentUrl, movies, match, comments, toggleModal, removeMov
         <ul className="paginator-list">
           {pages >= 3 ? (
             <li className="paginator-list__item paginator-list__item--first">
-              <Link to={currentUrl + '/1'}>FIRST</Link>
+              <Link to={`${currentUrl}/1`}>FIRST</Link>
             </li>
           ) : null}
           {previousPage > 0 ? (
             <li className="paginator-list__item">
-              <Link to={currentUrl + '/' + previousPage}>{previousPage}</Link>
+              <Link to={`${currentUrl}/${previousPage}`}>{previousPage}</Link>
             </li>
           ) : null}
           <li className="paginator-list__item active">
-            <Link to={currentUrl + '/' + currentPage}>{currentPage}</Link>
+            <Link to={`${currentUrl}/${currentPage}`}>{currentPage}</Link>
           </li>
           {nextPage <= pages ? (
             <li className="paginator-list__item">
-              <Link to={currentUrl + '/' + nextPage}>{nextPage}</Link>
+              <Link to={`${currentUrl}/${nextPage}`}>{nextPage}</Link>
             </li>
           ) : null}
           {pages >= 3 ? (
             <li className="paginator-list__item paginator-list__item--last">
-              <Link to={currentUrl + '/' + pages}>LAST</Link>
+              <Link to={`${currentUrl}/${pages}`}>LAST</Link>
             </li>
           ) : null}
         </ul>
@@ -58,7 +59,6 @@ const paginator = ({ currentUrl, movies, match, comments, toggleModal, removeMov
 };
 
 paginator.propTypes = {
-  currentUrl: Proptypes.string.isRequired,
   movies: Proptypes.array.isRequired,
   match: Proptypes.object.isRequired,
   comments: Proptypes.object.isRequired,

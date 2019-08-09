@@ -6,18 +6,17 @@ import Proptypes from 'prop-types';
 import ModalForm from '../UI/modal-form';
 
 import Paginator from './paginator/paginator';
-import Spinner from '../UI/Spinner/Spinner';
+import Spinner from '../UI/Spinner';
 import Error from '../UI/error';
 import Settings from './list-settings';
+import ListInfo from './list-info';
+import ListSortSelect from './list-sort-select';
 
-let CURRENT_PAGE = '';
-let CURRENT_URL = '';
 let LIST_ID = '';
 class List extends Component {
   state = {
     showModal: false,
     id: 0,
-    comment: '',
     sortBy: ''
   };
 
@@ -28,20 +27,24 @@ class List extends Component {
   };
 
   toggleModal = id => {
-    this.setState(() => ({
-      showModal: !this.state.showModal,
+    this.setState(prevState => ({
+      showModal: !prevState.showModal,
       id
     }));
   };
   submitComment = comment => {
-    const { addComment, history } = this.props;
+    const {
+      addComment,
+      history: { push },
+      match
+    } = this.props;
     const data = {
       media_type: 'movie',
       media_id: this.state.id,
       comment
     };
-    addComment(LIST_ID, data).then(res => {
-      history.push(CURRENT_URL + '/1');
+    addComment(LIST_ID, data).then(() => {
+      push(`/list/${match.params.id}/1`);
       this.setState({
         showModal: false
       });
@@ -49,10 +52,13 @@ class List extends Component {
   };
 
   onMovieRemoval = id => {
-    const { removeMovie, history } = this.props;
+    const {
+      removeMovie,
+      history: { push }
+    } = this.props;
     if (window.confirm('You sure want to delete this?')) {
-      removeMovie(LIST_ID, id).then(res => {
-        history.push('/list/' + LIST_ID + '/1');
+      removeMovie(LIST_ID, id).then(() => {
+        push('/list/' + LIST_ID + '/1');
       });
     }
   };
@@ -64,35 +70,12 @@ class List extends Component {
     });
     return newObj;
   };
-  convertRevenue = revenue => {
-    const billion = 1000000000;
-    const million = 1000000;
-    const thousand = 1000;
-    if (revenue > billion) {
-      return Math.floor(revenue / billion) + 'B';
-    }
-    if (revenue > million) {
-      return Math.floor(revenue / million) + 'M';
-    }
-    if (revenue > thousand) {
-      return Math.floor(revenue / thousand) + 'K';
-    }
-    return revenue;
-  };
-  convertRuntime = runtime => {
-    const runtimeHours = Math.floor(runtime / 60);
-    const runtimeMinutes = runtime - runtimeHours * 60;
-    return runtimeHours + 'H ' + runtimeMinutes + 'M';
-  };
+
   render() {
     const { list, loading, match } = this.props;
     const comments = list ? this.makeCommentsObject(list.comments) : null;
     LIST_ID = match.params.id;
-    CURRENT_PAGE = match.params.page;
-    CURRENT_URL = '/list/' + LIST_ID;
 
-    const runtime = list ? this.convertRuntime(list.runtime) : '';
-    const revenue = list ? this.convertRevenue(list.revenue) : '';
     return (
       <React.Fragment>
         {loading ? (
@@ -103,7 +86,7 @@ class List extends Component {
               <h1>{list.name}</h1>
               <p>{list.description}</p>
             </div>
-            <Settings empty listId={LIST_ID} />
+            <Settings empty />
             <Error>List is empty</Error>
           </div>
         ) : list ? (
@@ -117,48 +100,13 @@ class List extends Component {
               <h1>{list.name}</h1>
               <p>{list.description}</p>
             </div>
-            <div className="list-info">
-              <div className="list-info__item list-info__items-count">
-                <h2>{list.items}</h2>
-                <p>{list.items === 1 ? 'ITEM ON THIS LIST' : 'ITEMS ON THIS LIST'}</p>
-              </div>
-              <div className="list-info__item list-info__rating">
-                <h2>{list.rating.toFixed(2)}</h2>
-                <p>AVERAGE RATING</p>
-              </div>
-              <div className="list-info__item list-info__runtime">
-                <h2>{runtime}</h2>
-                <p>TOTAL RUNTIME</p>
-              </div>
-              <div className="list-info__item list-info__revenue">
-                <h2>{'$' + revenue}</h2>
-                <p>TOTAL REVENUE</p>
-              </div>
-            </div>
+            <ListInfo list={list} />
             <div className="list-settings-wrapper">
               <Settings />
-              <div className="list-sorting">
-                <select
-                  className="button"
-                  name="list"
-                  value="default"
-                  onChange={this.onSortSelect}
-                  style={{ height: '4rem', borderRadius: '5px' }}
-                >
-                  <option value="default" disabled>
-                    Sort By
-                  </option>
-                  <option value="DATE_ASC">Release Date Asc</option>
-                  <option value="DATE_DESC">Release Date Desc</option>
-                  <option value="RATING_ASC">Rating Asc</option>
-                  <option value="RATING_DESC">Rating Desc</option>
-                  <option value="TITLE_DESC">Title Desc</option>
-                </select>
-              </div>
+              <ListSortSelect onSortSelect={this.onSortSelect} />
             </div>
             <div className="list-movies">
               <Paginator
-                currentUrl={CURRENT_URL}
                 movies={list.movies}
                 comments={comments}
                 toggleModal={this.toggleModal}
@@ -181,7 +129,9 @@ List.propTypes = {
   loading: Proptypes.bool.isRequired,
   addComment: Proptypes.func.isRequired,
   removeMovie: Proptypes.func.isRequired,
-  history: Proptypes.object.isRequired
+  history: Proptypes.shape({
+    push: Proptypes.func.isRequired
+  }).isRequired
 };
 
 List.defaultProps = {

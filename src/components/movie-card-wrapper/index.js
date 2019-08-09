@@ -13,4 +13,4 @@ export default MovieCardWrapper;
 
 MovieCardWrapper.propTypes = {
   children: PropTypes.node.isRequired
-}
+};

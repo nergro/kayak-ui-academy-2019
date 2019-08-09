@@ -4,9 +4,7 @@ import CreateList from './update-list';
 import { updateList } from '../../actions/lists';
 
 const findList = (lists, listId) => {
-  const list = lists.find(l => {
-    return l.data.id.toString() === listId;
-  });
+  const list = lists.find(l => l.data.id.toString() === listId);
   return list ? list.data : null;
 };
 

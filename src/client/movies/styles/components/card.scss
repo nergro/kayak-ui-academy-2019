@@ -48,11 +48,11 @@ $width__child-unit-card: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    .card-list__body {
+    &__body {
       border: 1px solid #ccc;
       width: 100%;
       text-align: center;
-      .card-list__body--item {
+      &--item {
         margin: 0.5rem 0;
         font-weight: $font-weight__headings;
       }

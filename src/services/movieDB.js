@@ -14,28 +14,22 @@ export const config = token => ({
 });
 
 /* AUTH */
-export const getRequestToken = () => {
-  return axios
+export const getRequestToken = () =>
+  axios
     .post(
       'https://api.themoviedb.org/4/auth/request_token',
       { redirect_to: 'http://localhost:3000/' },
       config(accessKey)
     )
-    .then(res => {
-      return res.data.request_token;
-    });
-};
+    .then(res => res.data.request_token);
 
-export const getAccessToken = request_token => {
-  return axios
-    .post('https://api.themoviedb.org/4/auth/access_token', { request_token }, config(accessKey))
-    .then(res => {
-      return {
-        access_token: res.data.access_token,
-        account_id: res.data.account_id
-      };
-    });
-};
+export const getAccessToken = requestToken =>
+  axios
+    .post('https://api.themoviedb.org/4/auth/access_token', { requestToken }, config(accessKey))
+    .then(res => ({
+      access_token: res.data.access_token,
+      account_id: res.data.account_id
+    }));
 
 /* LISTS */
 
@@ -48,12 +42,10 @@ export const getLists = accountId => {
       return getAllLists(res.data.results);
       // return res.data.results;
     })
-    .then(res => {
-      return {
-        lists,
-        fetchedLists: res
-      };
-    });
+    .then(res => ({
+      lists,
+      fetchedLists: res
+    }));
 };
 
 export const getAllLists = lists => {
@@ -61,62 +53,59 @@ export const getAllLists = lists => {
   return Promise.all(promises);
 };
 
-export const getList = (listId, page) => {
-  return axios
+export const getList = (listId, page) =>
+  axios
     .get(
       `https://api.themoviedb.org/4/list/${listId}?page=${page}&api_key=${apiKey}`,
       config(accessKey)
     )
-    .then(res => {
-      return {
-        data: {
-          id: res.data.id,
-          items: res.data.total_results,
-          rating: res.data.average_rating,
-          runtime: res.data.runtime,
-          revenue: res.data.revenue,
-          totalPages: res.data.total_pages,
-          movies: res.data.results,
-          name: res.data.name,
-          description: res.data.description,
-          comments: res.data.comments
-        }
-      };
-    });
-};
+    .then(res => ({
+      data: {
+        id: res.data.id,
+        items: res.data.total_results,
+        rating: res.data.average_rating,
+        runtime: res.data.runtime,
+        revenue: res.data.revenue,
+        totalPages: res.data.total_pages,
+        movies: res.data.results,
+        name: res.data.name,
+        description: res.data.description,
+        comments: res.data.comments
+      }
+    }));
 
-export const createList = (title, description, accessToken) => {
-  const data = {
-    name: title,
-    iso_639_1: 'en',
-    description
-  };
-  return axios.post('https://api.themoviedb.org/4/list', data, config(accessToken)).then(res => {
-    return res.data.id;
-  });
-};
+export const createList = (title, description, accessToken) =>
+  axios
+    .post(
+      'https://api.themoviedb.org/4/list',
+      {
+        name: title,
+        iso_639_1: 'en',
+        description
+      },
+      config(accessToken)
+    )
+    .then(res => res.data.id);
 
-export const updateList = (title, description, accessToken, listId) => {
-  const data = {
-    name: title,
-    description
-  };
-  return axios
-    .put(`https://api.themoviedb.org/4/list/${listId}`, data, config(accessToken))
+export const updateList = (title, description, accessToken, listId) =>
+  axios
+    .put(
+      `https://api.themoviedb.org/4/list/${listId}`,
+      {
+        name: title,
+        description
+      },
+      config(accessToken)
+    )
     .then(res => res);
-};
 
-export const clearList = (listId, accessToken) => {
-  return axios
+export const clearList = (listId, accessToken) =>
+  axios
     .get(`https://api.themoviedb.org/4/list/${listId}/clear`, config(accessToken))
     .then(res => res);
-};
 
-export const deleteList = (listId, accessToken) => {
-  return axios
-    .delete(`https://api.themoviedb.org/4/list/${listId}`, config(accessToken))
-    .then(res => res);
-};
+export const deleteList = (listId, accessToken) =>
+  axios.delete(`https://api.themoviedb.org/4/list/${listId}`, config(accessToken)).then(res => res);
 
 /* Movies */
 export const getMovies = query => {
@@ -150,38 +139,33 @@ export const getMoviesList = ids => {
   return Promise.all(promises);
 };
 
-export const addCommentToMovie = (listId, accessToken, data) => {
-  return axios
+export const addCommentToMovie = (listId, accessToken, data) =>
+  axios
     .put(`https://api.themoviedb.org/4/list/${listId}/items`, data, config(accessToken))
     .then(res => res);
-};
 
-const getMovieTemplate = movieId => {
-  return {
-    items: [
-      {
-        media_type: 'movie',
-        media_id: movieId
-      }
-    ]
-  };
-};
+const getMovieTemplate = movieId => ({
+  items: [
+    {
+      media_type: 'movie',
+      media_id: movieId
+    }
+  ]
+});
 
-export const addMovieToList = (listId, movieId, accessToken) => {
-  return axios
+export const addMovieToList = (listId, movieId, accessToken) =>
+  axios
     .post(
       `https://api.themoviedb.org/4/list/${listId}/items`,
       getMovieTemplate(movieId),
       config(accessToken)
     )
     .then(res => res);
-};
 
-export const removeMovieFromList = (listId, movieId, accessToken) => {
-  return axios
+export const removeMovieFromList = (listId, movieId, accessToken) =>
+  axios
     .delete(`https://api.themoviedb.org/4/list/${listId}/items`, {
       data: getMovieTemplate(movieId),
       ...config(accessToken)
     })
     .then(res => res);
-};

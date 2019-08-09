@@ -4,14 +4,10 @@ import {
   REQUEST_TOKEN_FAILED,
   ACCESS_TOKEN_LOADING,
   ACCESS_TOKEN_SUCCESS,
-  ACCESS_TOKEN_FAILED,
-  LOGOUT
+  ACCESS_TOKEN_FAILED
 } from '../actions/auth';
 
 const initialState = {
-  request_token: '',
-  access_token: '',
-  accound_id: '',
   loading: false,
   error: false,
   isAuth: false
@@ -37,8 +33,6 @@ const auth = (state = initialState, action) => {
       };
     case ACCESS_TOKEN_FAILED:
       return { ...state, loading: false, error: true, isAuth: false };
-    case LOGOUT:
-      return { ...state, request_token: '', access_token: '', accound_id: '' };
     default:
       return state;
   }

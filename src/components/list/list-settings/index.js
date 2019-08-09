@@ -7,11 +7,7 @@ class settings extends Component {
     showSettings: false
   };
   settingsClicked = () => {
-    this.setState(() => {
-      return {
-        showSettings: !this.state.showSettings
-      };
-    });
+    this.setState(prevState => ({ showSettings: !prevState.showSettings }));
   };
 
   warning = (e, msg) => {
@@ -23,14 +19,11 @@ class settings extends Component {
   render() {
     const { empty, match } = this.props;
     const listId = match.params.id;
-    const editUrl = '/list/' + listId + '/edit';
-    const clearUrl = '/list/' + listId + '/clear';
-    const deleteUrl = '/list/' + listId + '/delete';
     return (
       <div className="settings-wrapper">
         <button
           type="button"
-          className="list-info__item list-settings"
+          className="list-info__item list-settings__button"
           onClick={this.settingsClicked}
         >
           Settings
@@ -39,23 +32,22 @@ class settings extends Component {
           <div className="settings">
             <div className="settings__arrow-up" />
             <ul className="settings__list">
-              <li className="settings-list__item">
-                <Link to={editUrl}>EDIT LIST</Link>
+              <li className="settings__list--item">
+                <Link to={`/list/${listId}/edit`}>EDIT LIST</Link>
               </li>
-
               {!empty ? (
-                <li className="settings-list__item">
+                <li className="settings__list--item">
                   <Link
-                    to={clearUrl}
+                    to={`/list/${listId}/clear`}
                     onClick={e => this.warning(e, 'Do You really want to CLEAR this list?')}
                   >
                     CLEAR LIST
                   </Link>
                 </li>
               ) : null}
-              <li className="settings-list__item">
+              <li className="settings__list--item">
                 <Link
-                  to={deleteUrl}
+                  to={`/list/${listId}/delete`}
                   onClick={e => this.warning(e, 'Do You really want to DELETE this list?')}
                 >
                   DELETE LIST
@@ -69,7 +61,8 @@ class settings extends Component {
   }
 }
 settings.propTypes = {
-  empty: Proptypes.bool
+  empty: Proptypes.bool,
+  match: Proptypes.object.isRequired
 };
 
 settings.defaultProps = {

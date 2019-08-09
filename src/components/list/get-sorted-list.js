@@ -11,21 +11,25 @@ const getSortedList = (movies, sortBy) => {
       case 'DATE_DESC':
         return movies.slice(0).sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
       case 'TITLE_DESC':
-        return movies.slice(0).sort((a, b) => {
-          return a.title.toUpperCase() < b.title.toUpperCase()
-            ? 1
-            : b.title.toUpperCase() < a.title.toUpperCase()
-            ? -1
-            : 0;
-        });
+        return movies
+          .slice(0)
+          .sort((a, b) =>
+            a.title.toUpperCase() < b.title.toUpperCase()
+              ? 1
+              : b.title.toUpperCase() < a.title.toUpperCase()
+              ? -1
+              : 0
+          );
       default:
-        return movies.slice(0).sort((a, b) => {
-          return a.title.toUpperCase() > b.title.toUpperCase()
-            ? 1
-            : b.title.toUpperCase() > a.title.toUpperCase()
-            ? -1
-            : 0;
-        });
+        return movies
+          .slice(0)
+          .sort((a, b) =>
+            a.title.toUpperCase() > b.title.toUpperCase()
+              ? 1
+              : b.title.toUpperCase() > a.title.toUpperCase()
+              ? -1
+              : 0
+          );
     }
   }
   return [];

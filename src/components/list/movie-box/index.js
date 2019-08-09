@@ -6,7 +6,6 @@ const movieBox = ({ comment, toggleModal, removeMovie, movie }) => {
   const descArr = movie.overview ? movie.overview.split('.') : [];
   const description = descArr.length > 2 ? descArr.slice(0, 2).join() : descArr.join();
   const image = movie.backdrop_path ? imagePath + movie.backdrop_path : null;
-
   return (
     <div className="movie-box">
       {image ? (
@@ -32,7 +31,7 @@ const movieBox = ({ comment, toggleModal, removeMovie, movie }) => {
               <span className="movie-box-bottom__comment--edit">
                 <i className="fas fa-pencil-alt" onClick={() => toggleModal(movie.id)} />
               </span>
-              <span className="movie-box__remove">
+              <span className="movie-box-bottom__comment--remove">
                 <i className="fas fa-times fa-2x" onClick={() => removeMovie(movie.id)} />
               </span>
             </React.Fragment>
