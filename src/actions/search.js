@@ -31,7 +31,6 @@ export const clearMovies = () => ({
 });
 
 export const setGenres = () => (dispatch, getState, { storageClient }) => {
-  console.log('storage:', storageClient);
   return getGenres().then(({ genres }) => {
     dispatch(gotGenres(genres));
   });

@@ -5,7 +5,6 @@ import Proptypes from 'prop-types';
 import Movie from '../../movie-box';
 
 const listMovies = ({ movies, comments, toggleModal, removeMovie }) => {
-  console.log(movies);
   return (
     <div className="list-movies__movies">
       {movies
