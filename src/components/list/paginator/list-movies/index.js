@@ -4,7 +4,7 @@ import React from 'react';
 import Proptypes from 'prop-types';
 import Movie from '../../movie-box';
 
-const listMovies = ({ movies, comments, toggleModal, removeMovie }) => {
+const ListMovies = ({ movies, comments, toggleModal, removeMovie }) => {
   return (
     <div className="list-movies__movies">
       {movies
@@ -22,16 +22,16 @@ const listMovies = ({ movies, comments, toggleModal, removeMovie }) => {
   );
 };
 
-listMovies.propTypes = {
+ListMovies.propTypes = {
   movies: Proptypes.array,
   comments: Proptypes.object,
   toggleModal: Proptypes.func.isRequired,
   removeMovie: Proptypes.func.isRequired
 };
 
-listMovies.defaultProps = {
+ListMovies.defaultProps = {
   movies: [],
   comments: {}
 };
 
-export default listMovies;
+export default ListMovies;

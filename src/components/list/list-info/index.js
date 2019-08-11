@@ -1,7 +1,7 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
-const listInfo = ({ list }) => {
+const ListInfo = ({ list }) => {
   const convertRuntime = runtime => {
     const runtimeHours = Math.floor(runtime / 60);
     const runtimeMinutes = runtime - runtimeHours * 60;
@@ -44,8 +44,8 @@ const listInfo = ({ list }) => {
   );
 };
 
-listInfo.propTypes = {
+ListInfo.propTypes = {
   list: Proptypes.object.isRequired
 };
 
-export default listInfo;
+export default ListInfo;

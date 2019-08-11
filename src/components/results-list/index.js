@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Proptypes from 'prop-types';
 import GenresList from '../genres-list';
 
 const ResultsList = ({ isMoviesLoading, results, handleSelect, clearMovies, genres }) => {
@@ -24,4 +24,11 @@ const ResultsList = ({ isMoviesLoading, results, handleSelect, clearMovies, genr
   );
 };
 
+ResultsList.propTypes = {
+  isMoviesLoading: Proptypes.bool.isRequired,
+  results: Proptypes.array.isRequired,
+  handleSelect: Proptypes.func.isRequired,
+  clearMovies: Proptypes.func.isRequired,
+  genres: Proptypes.array.isRequired
+};
 export default ResultsList;

@@ -5,7 +5,7 @@ import ListForm from '../list-form';
 import Spinner from '../UI/Spinner';
 import Error from '../UI/error';
 
-const editList = ({ loading, updateList, list }) => (
+const EditList = ({ loading, updateList, list }) => (
   <div className="create-list">
     <h1>Update List</h1>
     {loading ? (
@@ -18,14 +18,14 @@ const editList = ({ loading, updateList, list }) => (
   </div>
 );
 
-editList.propTypes = {
+EditList.propTypes = {
   loading: Proptypes.bool.isRequired,
   updateList: Proptypes.func.isRequired,
   list: Proptypes.object
 };
 
-editList.defaultProps = {
+EditList.defaultProps = {
   list: null
 };
 
-export default editList;
+export default EditList;

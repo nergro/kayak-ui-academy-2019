@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import Proptypes from 'prop-types';
 
-class settings extends Component {
+class ListSettings extends Component {
   state = {
     showSettings: false
   };
@@ -60,13 +60,13 @@ class settings extends Component {
     );
   }
 }
-settings.propTypes = {
+ListSettings.propTypes = {
   empty: Proptypes.bool,
   match: Proptypes.object.isRequired
 };
 
-settings.defaultProps = {
+ListSettings.defaultProps = {
   empty: false
 };
 
-export default withRouter(settings);
+export default withRouter(ListSettings);

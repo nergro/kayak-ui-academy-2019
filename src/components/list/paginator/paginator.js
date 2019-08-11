@@ -5,7 +5,7 @@ import MovieList from './list-movies';
 import getSortedList from '../get-sorted-list';
 
 const MOVIES_PER_PAGE = 5;
-const paginator = ({ movies, match, comments, toggleModal, removeMovie, sortBy }) => {
+const Paginator = ({ movies, match, comments, toggleModal, removeMovie, sortBy }) => {
   const pages = movies ? Math.ceil(movies.length / MOVIES_PER_PAGE) : 0;
   const currentUrl = `/list/${match.params.id}`;
   const currentPage = match.params.page;
@@ -58,7 +58,7 @@ const paginator = ({ movies, match, comments, toggleModal, removeMovie, sortBy }
   );
 };
 
-paginator.propTypes = {
+Paginator.propTypes = {
   movies: Proptypes.array.isRequired,
   match: Proptypes.object.isRequired,
   comments: Proptypes.object.isRequired,
@@ -67,4 +67,4 @@ paginator.propTypes = {
   sortBy: Proptypes.string.isRequired
 };
 
-export default withRouter(paginator);
+export default withRouter(Paginator);

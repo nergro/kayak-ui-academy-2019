@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 export const imagePath = 'https://image.tmdb.org/t/p/w500';
 export const apiKey = 'b8df29dc84006d6a763f0f6ad6dee2c5';
 export const accessKey =

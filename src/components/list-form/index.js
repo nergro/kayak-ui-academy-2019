@@ -1,9 +1,8 @@
-/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Proptypes from 'prop-types';
 
-class listForm extends Component {
+class ListForm extends Component {
   state = {
     title: '',
     description: '',
@@ -55,7 +54,7 @@ class listForm extends Component {
         <div className="form-control">
           <input
             type="text"
-            name="title-one"
+            name="title"
             autoComplete="off"
             placeholder="List title"
             spellCheck="false"
@@ -67,7 +66,7 @@ class listForm extends Component {
         <div className="form-control">
           <textarea
             type="text"
-            name="description-one"
+            name="description"
             placeholder="Description"
             spellCheck="false"
             value={this.state.description}
@@ -89,7 +88,7 @@ class listForm extends Component {
   }
 }
 
-listForm.propTypes = {
+ListForm.propTypes = {
   title: Proptypes.string,
   description: Proptypes.string,
   makeList: Proptypes.func,
@@ -100,11 +99,11 @@ listForm.propTypes = {
   }).isRequired
 };
 
-listForm.defaultProps = {
+ListForm.defaultProps = {
   makeList: null,
   updateList: null,
   title: '',
   description: ''
 };
 
-export default withRouter(listForm);
+export default withRouter(ListForm);

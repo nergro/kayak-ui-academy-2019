@@ -1,9 +1,14 @@
 import React from 'react';
+import Proptypes from 'prop-types';
 
-const error = ({ children }) => (
+const Error = ({ children }) => (
   <h1 className="error-message" style={{ margin: '3rem auto' }}>
     {children}
   </h1>
 );
 
-export default error;
+Error.propTypes = {
+  children: Proptypes.string.isRequired
+};
+
+export default Error;

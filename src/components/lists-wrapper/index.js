@@ -6,7 +6,7 @@ import List from './list-box/list-box';
 import Spinner from '../UI/Spinner';
 import Error from '../UI/error';
 
-const listsWrapper = ({ lists, loading }) => (
+const ListsWrapper = ({ lists, loading }) => (
   <div className="lists-wrapper">
     {loading ? (
       <Spinner />
@@ -28,9 +28,9 @@ const listsWrapper = ({ lists, loading }) => (
   </div>
 );
 
-listsWrapper.propTypes = {
+ListsWrapper.propTypes = {
   lists: Proptypes.array.isRequired,
   loading: Proptypes.bool.isRequired
 };
 
-export default listsWrapper;
+export default ListsWrapper;

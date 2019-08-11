@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Proptypes from 'prop-types';
 
-const list = ({ title, itemCount, rating, id, history: { push } }) => {
+const List = ({ title, itemCount, rating, id, history: { push } }) => {
   const count = itemCount === 1 ? `${itemCount} item` : `${itemCount} items`;
   const handleClick = () => {
     push(`/list/${id}/1`);
@@ -19,7 +19,7 @@ const list = ({ title, itemCount, rating, id, history: { push } }) => {
   );
 };
 
-list.propTypes = {
+List.propTypes = {
   title: Proptypes.string.isRequired,
   itemCount: Proptypes.number.isRequired,
   rating: Proptypes.string.isRequired,
@@ -29,4 +29,4 @@ list.propTypes = {
   }).isRequired
 };
 
-export default withRouter(list);
+export default withRouter(List);

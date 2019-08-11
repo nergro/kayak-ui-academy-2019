@@ -2,7 +2,7 @@ import React from 'react';
 import Proptypes from 'prop-types';
 import { imagePath } from '../../../services/movieDB';
 
-const movieBox = ({ comment, toggleModal, removeMovie, movie }) => {
+const MovieBox = ({ comment, toggleModal, removeMovie, movie }) => {
   const descArr = movie.overview ? movie.overview.split('.') : [];
   const description = descArr.length > 2 ? descArr.slice(0, 2).join() : descArr.join();
   const image = movie.backdrop_path ? imagePath + movie.backdrop_path : null;
@@ -56,15 +56,15 @@ const movieBox = ({ comment, toggleModal, removeMovie, movie }) => {
   );
 };
 
-movieBox.propTypes = {
+MovieBox.propTypes = {
   comment: Proptypes.string,
   toggleModal: Proptypes.func.isRequired,
   removeMovie: Proptypes.func.isRequired,
   movie: Proptypes.object.isRequired
 };
 
-movieBox.defaultProps = {
+MovieBox.defaultProps = {
   comment: null
 };
 
-export default movieBox;
+export default MovieBox;

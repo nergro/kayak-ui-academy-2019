@@ -5,7 +5,7 @@ import ListForm from '../list-form';
 import Spinner from '../UI/Spinner';
 import Error from '../UI/error';
 
-const createList = ({ loading, error, makeList }) => (
+const CreateList = ({ loading, error, makeList }) => (
   <div className="create-list">
     <h1>Create List</h1>
     {loading ? (
@@ -18,10 +18,10 @@ const createList = ({ loading, error, makeList }) => (
   </div>
 );
 
-createList.propTypes = {
+CreateList.propTypes = {
   loading: Proptypes.bool.isRequired,
   error: Proptypes.bool.isRequired,
   makeList: Proptypes.func.isRequired
 };
 
-export default createList;
+export default CreateList;

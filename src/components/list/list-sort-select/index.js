@@ -1,7 +1,7 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
-const listSortSelect = ({ onSortSelect }) => (
+const ListSortSelect = ({ onSortSelect }) => (
   <div className="list-sorting">
     <select
       className="button"
@@ -21,8 +21,8 @@ const listSortSelect = ({ onSortSelect }) => (
     </select>
   </div>
 );
-listSortSelect.propTypes = {
+ListSortSelect.propTypes = {
   onSortSelect: Proptypes.func.isRequired
 };
 
-export default listSortSelect;
+export default ListSortSelect;
