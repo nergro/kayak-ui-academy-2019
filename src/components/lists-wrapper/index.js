@@ -6,7 +6,7 @@ import List from './list-box/list-box';
 import Spinner from '../UI/Spinner';
 import Error from '../UI/error';
 
-const listsWrapper = ({ lists, loading, error }) => (
+const listsWrapper = ({ lists, loading }) => (
   <div className="lists-wrapper">
     {loading ? (
       <Spinner />
@@ -20,18 +20,17 @@ const listsWrapper = ({ lists, loading, error }) => (
           rating={list.average_rating.toFixed(2)}
         />
       ))
-    ) : error ? (
-      <Error>Sorry! Something went wrong :(</Error>
-    ) : (
+    ) : lists.length === 0 ? (
       <Error>No lists created yet</Error>
+    ) : (
+      <Error>Sorry! Something went wrong :(</Error>
     )}
   </div>
 );
 
 listsWrapper.propTypes = {
   lists: Proptypes.array.isRequired,
-  loading: Proptypes.bool.isRequired,
-  error: Proptypes.bool.isRequired
+  loading: Proptypes.bool.isRequired
 };
 
 export default listsWrapper;

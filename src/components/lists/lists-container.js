@@ -3,8 +3,7 @@ import Lists from './lists';
 
 const mapStateToProps = state => ({
   lists: state.lists.lists,
-  loading: state.lists.loading,
-  error: state.lists.error
+  loading: state.lists.loading
 });
 
 const mapDispatchToProps = {};

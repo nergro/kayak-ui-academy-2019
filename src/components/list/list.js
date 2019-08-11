@@ -75,7 +75,6 @@ class List extends Component {
     const { list, loading, match } = this.props;
     const comments = list ? this.makeCommentsObject(list.comments) : null;
     LIST_ID = match.params.id;
-    console.log(list);
 
     return (
       <React.Fragment>
