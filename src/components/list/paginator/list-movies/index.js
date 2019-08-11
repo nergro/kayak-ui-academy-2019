@@ -4,21 +4,24 @@ import React from 'react';
 import Proptypes from 'prop-types';
 import Movie from '../../movie-box';
 
-const listMovies = ({ movies, comments, toggleModal, removeMovie }) => (
-  <div className="list-movies__movies">
-    {movies
-      ? movies.map(movie => (
-          <Movie
-            key={movie.id}
-            movie={movie}
-            comment={comments[movie.id]}
-            toggleModal={toggleModal}
-            removeMovie={removeMovie}
-          />
-        ))
-      : null}
-  </div>
-);
+const listMovies = ({ movies, comments, toggleModal, removeMovie }) => {
+  console.log(movies);
+  return (
+    <div className="list-movies__movies">
+      {movies
+        ? movies.map(movie => (
+            <Movie
+              key={movie.id}
+              movie={movie}
+              comment={comments[movie.id]}
+              toggleModal={toggleModal}
+              removeMovie={removeMovie}
+            />
+          ))
+        : null}
+    </div>
+  );
+};
 
 listMovies.propTypes = {
   movies: Proptypes.array,
